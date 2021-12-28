@@ -4,7 +4,9 @@ import {
   getDoc,
   getDocs,
   doc,
-  collection
+  collection,
+  query,
+  where
 } from 'firebase/firestore';
 
 let db;
@@ -28,7 +30,7 @@ export function init() {
   }
 }
 
-export async function getUserData(uid) {
+export async function getUserData(uid, orderBy) {
   if (!db) return;
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
@@ -37,10 +39,54 @@ export async function getUserData(uid) {
   return data;
 }
 
-export async function getModular(id) {
+export async function getModular(id, orderBy, direction, limit) {
   const db = getFirestore();
   const snapshot = await getDoc(doc(db, 'collections', id));
-  //   const querySnapshot = await getDocs(collection(db, 'collections', id));
   const data = snapshot.data();
-  return data;
+  let order = data.order;
+  if (order === '') {
+    return [];
+  } else {
+    order = order.split(' | ');
+  }
+  let q = query(
+    collection(db, `collections/${id}/data`),
+    where('_show', '==', true)
+  );
+  if (orderBy) {
+    q = q.orderBy(orderBy, direction);
+  }
+  if (limit) {
+    q = q.limit(limit);
+  }
+  let items = await getDocs(q);
+  if (orderBy) {
+    items = items.docs.reduce((acc, item) => {
+      const data = item.data();
+      Object.keys(data).forEach(function (key) {
+        if (data[key].seconds) {
+          data[key] = data[key].toDate().toString();
+        }
+      });
+      data.id = item.id;
+      acc.push(data);
+      return acc;
+    }, []);
+  } else {
+    items = order.reduce((acc, itemId) => {
+      const item = items.docs.find(itm => itm.id === itemId);
+      if (!item) return acc;
+      const data = item.data();
+      Object.keys(data).forEach(function (key) {
+        if (data[key].seconds) {
+          data[key] = data[key].toDate().toString();
+        }
+      });
+      data.id = item.id;
+      acc.push(data);
+      return acc;
+    }, []);
+  }
+  console.log(items);
+  return items;
 }
