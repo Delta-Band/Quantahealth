@@ -87,6 +87,20 @@ export async function getModular(id, orderBy, direction, limit) {
       return acc;
     }, []);
   }
-  console.log(items);
+  // console.log(items);
   return items;
+}
+
+export async function getFixed(id) {
+  const db = getFirestore();
+  const snapshot = await getDoc(doc(db, 'pages', id));
+  const data = snapshot.data().data;
+  if (!data) return {};
+  Object.keys(data).forEach(function (key) {
+    if (data[key].seconds) {
+      data[key] = data[key].toDate().toString();
+    }
+  });
+  console.log(data);
+  return data;
 }

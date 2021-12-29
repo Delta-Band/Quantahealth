@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
+import '../styles/globals.css';
 // import Image from 'next/image';
 import theme from '../theme';
 
