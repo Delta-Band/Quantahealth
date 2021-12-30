@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FrameIndicator } from '../components';
+import { FrameIndicator, Menu } from '../components';
+import { Squash as Hamburger } from 'hamburger-react';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -11,11 +13,11 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   topBar: {
-    height: 65,
+    height: 50,
     width: '100%',
     background: 'grey',
     flexShrink: 0,
-    paddingInline: theme.spacing(2),
+    paddingInlineStart: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
     display: 'flex',
     alignItems: 'center',
@@ -29,18 +31,57 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto'
   },
   img: {
-    height: '100%'
+    height: '100%',
+    zIndex: 1
+  },
+  hamburger: {
+    zIndex: 1
   }
 }));
 
+const invertColor = {
+  normal: {
+    filter: 'invert(0)',
+    transition: {
+      delay: 1,
+      type: 'spring',
+      bounce: 0
+    }
+  },
+  invert: {
+    filter: 'invert(1)',
+    transition: {
+      type: 'spring',
+      bounce: 0
+    }
+  }
+};
+
 export default function MobileLayout({ logo, frames }) {
   const classes = useStyles();
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <div className={classes.mainWrapper}>
       <div className={classes.topBar}>
-        <img className={classes.img} src={logo} alt='Quathealth Logo' />
+        <motion.img
+          className={classes.img}
+          src={logo}
+          alt='Quathealth Logo'
+          variants={invertColor}
+          initial='normal'
+          animate={isOpen ? 'invert' : 'normal'}
+        />
         <FrameIndicator frames={frames} />
+        <motion.div
+          className={classes.hamburger}
+          variants={invertColor}
+          initial='normal'
+          animate={isOpen ? 'invert' : 'normal'}
+        >
+          <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+        </motion.div>
+        <Menu open={isOpen} items={['Home', 'Data', 'Contact']} />
       </div>
       <div className={classes.contentWrapper}>
         <div>Page Layout</div>

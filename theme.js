@@ -148,7 +148,7 @@ const theme = createTheme({
       },
       containedSecondary: {
         '&:hover': {
-          backgroundColor: '#4431ff'
+          // backgroundColor: '#4431ff'
         }
       },
       containedSizeLarge: {

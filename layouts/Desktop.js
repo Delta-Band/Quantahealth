@@ -50,6 +50,7 @@ export default function DesktopLayout({ logo, frames }) {
       <div className={classes.sideBar}>
         <img className={classes.img} src={logo} alt='Quathealth Logo' />
         <FrameIndicator frames={frames} vertical />
+        <div />
       </div>
       <div className={classes.contentWrapper}>Page Layout</div>
     </>
