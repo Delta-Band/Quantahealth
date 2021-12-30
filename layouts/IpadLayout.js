@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MobileLayout({ logo, frames }) {
+export default function IpadLayout({ logo, frames }) {
   const classes = useStyles();
 
   return (

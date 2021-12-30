@@ -5,19 +5,19 @@ import { FrameIndicator } from '../components';
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
     display: 'flex',
-    flexDirection: 'column',
     height: '100vh',
     maxHeight: '-webkit-fill-available',
     overflow: 'hidden'
   },
-  topBar: {
-    height: 65,
-    width: '100%',
+  sideBar: {
+    height: '100%',
+    width: 65,
     background: 'grey',
     flexShrink: 0,
-    paddingInline: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
+    paddingInline: theme.spacing(1.5),
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between'
   },
@@ -29,18 +29,18 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto'
   },
   img: {
-    height: '100%'
+    width: '100%'
   }
 }));
 
-export default function MobileLayout({ logo, frames }) {
+export default function MobileLandscape({ logo, frames }) {
   const classes = useStyles();
 
   return (
     <div className={classes.mainWrapper}>
-      <div className={classes.topBar}>
+      <div className={classes.sideBar}>
         <img className={classes.img} src={logo} alt='Quathealth Logo' />
-        <FrameIndicator frames={frames} />
+        <FrameIndicator frames={frames} vertical />
       </div>
       <div className={classes.contentWrapper}>
         <div>Page Layout</div>

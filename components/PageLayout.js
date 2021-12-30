@@ -1,28 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { DesktopLayout, MobileLayout } from '../layouts';
-
-const useStyles = makeStyles(theme => ({
-  sideBar: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    height: '100%',
-    background: 'grey',
-    width: 400,
-    paddingInline: theme.spacing(6)
-  },
-  contentWrapper: {
-    background: 'red',
-    width: 1067,
-    margin: '0 auto'
-  },
-  img: {
-    width: '100%'
-  }
-}));
+import useWindowOrientation from 'use-window-orientation';
+import {
+  DesktopLayout,
+  MobileLayout,
+  MobileLandscapeLayout,
+  IpadLayout
+} from '../layouts';
 
 export default function PageLayout({
   title,
@@ -31,20 +16,26 @@ export default function PageLayout({
   noIndex = false,
   logo,
   logoMobile,
-  favicon
+  favicon,
+  frames = []
 }) {
-  // const theme = useTheme();
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
-  // const mobile = useMediaQuery(theme.breakpoints.down('ipad'));
-
-  console.log(`ipad: ${ipad}`);
+  const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
+  const { portrait } = useWindowOrientation();
 
   function getResponsiveLayout() {
     switch (true) {
+      case laptop:
+        return <DesktopLayout logo={logo} frames={frames} />;
       case ipad:
-        return <DesktopLayout logo={logo} />;
+        return <IpadLayout logo={logo} frames={frames} />;
       default:
-        return <MobileLayout logo={logoMobile} />;
+        // defaults to smartphones
+        return portrait ? (
+          <MobileLayout logo={logoMobile} frames={frames} />
+        ) : (
+          <MobileLandscapeLayout logo={logoMobile} frames={frames} />
+        );
     }
   }
 
@@ -70,14 +61,7 @@ export default function PageLayout({
         <meta httpEquiv='ScreenOrientation' content='autoRotate:disabled' />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
       </Head>
-      {/* {ipad ? (
-      ) : (
-      )} */}
       {getResponsiveLayout()}
-      {/* <div className={classes.sideBar}>
-        <img className={classes.img} src={logo} alt='Quathealth Logo' />
-      </div>
-      <div className={classes.contentWrapper}>Page Layout</div> */}
     </div>
   );
 }

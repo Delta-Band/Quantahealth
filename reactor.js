@@ -101,6 +101,6 @@ export async function getFixed(id) {
       data[key] = data[key].toDate().toString();
     }
   });
-  console.log(data);
+  // console.log(data);
   return data;
 }
