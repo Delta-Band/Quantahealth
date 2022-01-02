@@ -81,7 +81,7 @@ export default function MobileLayout({ logo, frames }) {
         >
           <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
         </motion.div>
-        <Menu open={isOpen} items={['Home', 'Data', 'Contact']} />
+        <Menu open={isOpen} items={['Data', 'Contact']} />
       </div>
       <div className={classes.contentWrapper}>
         <div>Page Layout</div>

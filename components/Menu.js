@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { Button } from '@mui/material';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   menuWrapper: {
@@ -78,11 +79,24 @@ export default function Menu({ open, items }) {
       transition={{ type: 'spring', bounce: 0 }}
     >
       <motion.ul variants={list} className={classes.list}>
+        <motion.li variants={listItem}>
+          <Link href='/'>
+            <a>
+              <Button color='secondary' fullWidth>
+                Home
+              </Button>
+            </a>
+          </Link>
+        </motion.li>
         {items.map(itm => (
           <motion.li key={itm} variants={listItem}>
-            <Button color='secondary' fullWidth>
-              {itm}
-            </Button>
+            <Link href={`/${itm.toLowerCase()}`}>
+              <a>
+                <Button color='secondary' fullWidth>
+                  {itm}
+                </Button>
+              </a>
+            </Link>
           </motion.li>
         ))}
       </motion.ul>
