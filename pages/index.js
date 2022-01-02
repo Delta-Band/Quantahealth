@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
 import * as reactor from '../reactor';
 import { PageLayout } from '../components';
 
@@ -19,6 +20,8 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ frames, brand, seo }) {
+  const dispatch = useDispatch();
+
   // console.log(frames);
   // console.log(seo);
   return (
