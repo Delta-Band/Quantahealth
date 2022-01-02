@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import * as reactor from '../reactor';
-import { PageLayout } from '../components';
+import { Helmet } from '../components';
 
 export async function getStaticProps(context) {
   reactor.init();
@@ -20,21 +18,17 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ frames, brand, seo }) {
-  const dispatch = useDispatch();
-
   // console.log(frames);
   // console.log(seo);
   return (
     <>
-      <PageLayout
+      <Helmet
         title={seo.metaTitleHome}
         description={seo.metaDescriptionHome}
         imageForSocial={brand.imageForSocial}
-        logo={brand.logoDesktop}
-        logoMobile={brand.logoMobile}
         favicon={brand.favicon}
-        frames={frames}
       />
+      <div>Home</div>
     </>
   );
 }

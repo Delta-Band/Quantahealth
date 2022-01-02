@@ -67,7 +67,7 @@ const listItem = {
   show: { opacity: 1 }
 };
 
-export default function Menu({ open, items }) {
+export default function Menu({ open, close, items }) {
   const classes = useStyles();
 
   return (
@@ -78,7 +78,7 @@ export default function Menu({ open, items }) {
       animate={open ? 'show' : 'hidden'}
       transition={{ type: 'spring', bounce: 0 }}
     >
-      <motion.ul variants={list} className={classes.list}>
+      <motion.ul variants={list} className={classes.list} onClick={close}>
         <motion.li variants={listItem}>
           <Link href='/'>
             <a>
@@ -89,7 +89,7 @@ export default function Menu({ open, items }) {
           </Link>
         </motion.li>
         {items.map(itm => (
-          <motion.li key={itm} variants={listItem}>
+          <motion.li key={itm} variants={listItem} onClick={close}>
             <Link href={`/${itm.toLowerCase()}`}>
               <a>
                 <Button color='secondary' fullWidth>

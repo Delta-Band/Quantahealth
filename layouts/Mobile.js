@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { FrameIndicator, Menu } from '../components';
 import { Squash as Hamburger } from 'hamburger-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -57,35 +57,67 @@ const invertColor = {
   }
 };
 
-export default function MobileLayout({ logo, frames }) {
+export default function MobileLayout({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
 
   return (
     <div className={classes.mainWrapper}>
       <div className={classes.topBar}>
-        <motion.img
-          className={classes.img}
-          src={logo}
-          alt='Quathealth Logo'
-          variants={invertColor}
-          initial='normal'
-          animate={isOpen ? 'invert' : 'normal'}
-        />
-        <FrameIndicator frames={frames} />
-        <motion.div
-          className={classes.hamburger}
-          variants={invertColor}
-          initial='normal'
-          animate={isOpen ? 'invert' : 'normal'}
-        >
-          <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
-        </motion.div>
-        <Menu open={isOpen} items={['Data', 'Contact']} />
+        <AnimatePresence>
+          {logo && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.75 }}
+                className={classes.img}
+              >
+                <motion.img
+                  className={classes.img}
+                  src={logo}
+                  alt='Quathealth Logo'
+                  variants={invertColor}
+                  initial='normal'
+                  animate={isOpen ? 'invert' : 'normal'}
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.75 }}
+              >
+                <FrameIndicator frames={frames} />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.75 }}
+                className={classes.hamburger}
+              >
+                <motion.div
+                  variants={invertColor}
+                  initial='normal'
+                  animate={isOpen ? 'invert' : 'normal'}
+                >
+                  <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+                </motion.div>
+              </motion.div>
+              <Menu
+                open={isOpen}
+                close={() => {
+                  setOpen(false);
+                }}
+                items={['Data', 'Contact']}
+              />
+            </>
+          )}
+        </AnimatePresence>
       </div>
-      <div className={classes.contentWrapper}>
-        <div>Page Layout</div>
-      </div>
+      <div className={classes.contentWrapper}>{children}</div>
     </div>
   );
 }

@@ -1,12 +1,34 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import * as reactor from '../reactor';
+import { Helmet } from '../components';
 
-const useStyles = makeStyles(theme => ({
-  contactWrapper: {}
-}));
+export async function getStaticProps(context) {
+  reactor.init();
+  const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
+  const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
+  const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
+  return {
+    props: {
+      frames: homeFrames,
+      brand,
+      seo,
+      revalidate: 10
+    }
+  };
+}
 
-export default function Contact() {
-  const classes = useStyles();
-
-  return <div className={classes.contactWrapper}>Contact</div>;
+export default function Contact({ frames, brand, seo }) {
+  // console.log(frames);
+  // console.log(seo);
+  return (
+    <>
+      <Helmet
+        title={seo.metaTitleData}
+        description={seo.metaDescriptionData}
+        imageForSocial={brand.imageForSocial}
+        favicon={brand.favicon}
+      />
+      <div>Contact</div>
+    </>
+  );
 }
