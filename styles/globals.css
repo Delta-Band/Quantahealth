@@ -33,9 +33,9 @@ a {
   font-display: swap;
 }
 
-::-webkit-scrollbar {
-  width: 12px;
+/* ::-webkit-scrollbar {
+  width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  border-right: 6px solid black;
-}
+  border-left: 6px solid black;
+} */

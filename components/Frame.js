@@ -12,9 +12,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    '&:first-of-type': {
-      paddingTop: theme.spacing(8)
-    },
     '& *': {
       fontFamily: 'GT America'
     }
@@ -34,9 +31,9 @@ export default function Frame({
   useEffect(() => {
     if (percent >= 0.5) {
       //   console.log(`frame ${index} is visible`);
-      onVisible(frame.id);
+      onVisible(frame);
     }
-  }, [percent, frame.id, onVisible, index]);
+  }, [percent, frame, onVisible, index]);
 
   return (
     <div className={cx(className, classes.frameWrapper)} ref={targetRef}>

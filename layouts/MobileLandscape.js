@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    zIndex: 2
   },
   img: {
     width: '100%',
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     left: 80,
     top: '50%',
-    transform: 'translateY(-50%)'
+    marginTop: '-40vh'
   },
   richTxt: {
     flexShrink: 0,
@@ -64,23 +65,61 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const variants = {
+  enter: {
+    zIndex: 0,
+    opacity: 0
+  },
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1
+  },
+  exit: {
+    zIndex: 0,
+    opacity: 0
+  }
+};
+
 export default function MobileLandscape({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
-  const [visible, setVisible] = useState(frames[0].id);
-  const [bgColor, setBgColor] = useState(frames[0].bgColor);
-
-  useEffect(() => {
-    setBgColor(frames.find(frame => frame.id === visible).bgColor);
-  }, [visible, frames]);
+  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
 
   return (
     <motion.div
       className={classes.mainWrapper}
       animate={{
-        backgroundColor: bgColor
+        backgroundColor: visibleFrame.bgColor
       }}
     >
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={visibleFrame.id}
+          src={visibleFrame.media}
+          alt='mdia'
+          className={classes.media}
+          variants={variants}
+          initial='enter'
+          animate='center'
+          exit='exit'
+          transition={{
+            // x: { type: 'spring', stiffness: 300, damping: 30 },
+            opacity: { duration: 0.25 }
+          }}
+        />
+      </AnimatePresence>
+      {frames.map((frame, i) => (
+        <Frame
+          key={frame.id}
+          frame={frame}
+          onVisible={setVisibleFrame}
+          index={i}
+          className={classes.frameWrapper}
+        >
+          <RichText html={frame.richTxt} className={classes.richTxt} />
+        </Frame>
+      ))}
       <div className={classes.sideBar}>
         <AnimatePresence>
           {logo && (
@@ -136,18 +175,6 @@ export default function MobileLandscape({ logo, frames, children }) {
           )}
         </AnimatePresence>
       </div>
-      {frames.map((frame, i) => (
-        <Frame
-          key={frame.id}
-          frame={frame}
-          onVisible={setVisible}
-          index={i}
-          className={classes.frameWrapper}
-        >
-          <img src={frame.media} alt='mdia' className={classes.media} />
-          <RichText html={frame.richTxt} className={classes.richTxt} />
-        </Frame>
-      ))}
       {children}
     </motion.div>
   );
