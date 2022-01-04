@@ -1,6 +1,7 @@
 import React from 'react';
 import * as reactor from '../reactor';
 import { Helmet } from '../components';
+import { Typography } from '@mui/material';
 
 export async function getStaticProps(context) {
   reactor.init();
@@ -17,7 +18,7 @@ export async function getStaticProps(context) {
   };
 }
 
-export default function Home({ frames, brand, seo }) {
+export default function Home({ brand, seo }) {
   // console.log(frames);
   // console.log(seo);
   return (
@@ -28,7 +29,6 @@ export default function Home({ frames, brand, seo }) {
         imageForSocial={brand.imageForSocial}
         favicon={brand.favicon}
       />
-      <div>Home</div>
     </>
   );
 }

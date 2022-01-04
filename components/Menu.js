@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     paddingInline: theme.spacing(3)
-    // justifyContent: 'center'
   },
   list: {
     margin: 0,
@@ -26,16 +25,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const container = {
-  hidden: {
-    y: '-100%',
+  hidden: horizontal => ({
+    y: horizontal ? 0 : '-100%',
+    x: horizontal ? '-100%' : 0,
     transition: {
       when: 'afterChildren',
       type: 'spring',
       bounce: 0
     }
-  },
+  }),
   show: {
     y: '0%',
+    x: '0%',
     transition: {
       when: 'beforeChildren',
       type: 'spring',
@@ -67,7 +68,7 @@ const listItem = {
   show: { opacity: 1 }
 };
 
-export default function Menu({ open, close, items }) {
+export default function Menu({ open, close, items, horizontal = false }) {
   const classes = useStyles();
 
   return (
@@ -76,6 +77,7 @@ export default function Menu({ open, close, items }) {
       variants={container}
       initial='hidden'
       animate={open ? 'show' : 'hidden'}
+      custom={horizontal}
       transition={{ type: 'spring', bounce: 0 }}
     >
       <motion.ul variants={list} className={classes.list} onClick={close}>

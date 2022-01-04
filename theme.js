@@ -44,13 +44,13 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: ['Roboto'].join(','),
+    fontFamily: 'GT America',
     lineHeight: 1.8,
     fontSize: 18,
     allVariants: {
-      fontWeight: 300,
+      fontWeight: 400,
       color: '#FFF',
-      fontFamily: 'Roboto',
+      fontFamily: 'GT America',
       lineHeight: 1.8
     },
     body1: {},

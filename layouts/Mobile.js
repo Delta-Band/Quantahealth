@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FrameIndicator, Menu } from '../components';
 import { Squash as Hamburger } from 'hamburger-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FrameIndicator, Menu, Frame } from '../components';
+import * as consts from './consts';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
+    // display: 'flex',
+    // flexDirection: 'column',
     height: '100vh',
     maxHeight: '-webkit-fill-available',
     overflow: 'hidden'
@@ -15,22 +16,22 @@ const useStyles = makeStyles(theme => ({
   topBar: {
     height: 50,
     width: '100%',
-    background: 'grey',
-    flexShrink: 0,
     paddingInlineStart: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'fixed',
+    top: 0,
+    left: 0
   },
   contentWrapper: {
-    background: 'red',
     height: '100%',
     width: '100%',
     height: '100%',
     overflow: 'auto'
   },
-  img: {
+  logoImg: {
     height: '100%',
     zIndex: 1
   },
@@ -39,27 +40,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const invertColor = {
-  normal: {
-    filter: 'invert(0)',
-    transition: {
-      delay: 1,
-      type: 'spring',
-      bounce: 0
-    }
-  },
-  invert: {
-    filter: 'invert(1)',
-    transition: {
-      type: 'spring',
-      bounce: 0
-    }
-  }
-};
-
 export default function MobileLayout({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
+  const [visible, setVisible] = useState(frames[0].id);
+  const [bgColor, setBgColor] = useState(frames[0].bgColor);
+
+  useEffect(() => {
+    setBgColor(frames.find(frame => frame.id === visible).bgColor);
+  }, [visible, frames]);
 
   return (
     <div className={classes.mainWrapper}>
@@ -72,13 +61,13 @@ export default function MobileLayout({ logo, frames, children }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
-                className={classes.img}
+                className={classes.logoImg}
               >
                 <motion.img
-                  className={classes.img}
+                  className={classes.logoImg}
                   src={logo}
                   alt='Quathealth Logo'
-                  variants={invertColor}
+                  variants={consts.INVERT_COLOR}
                   initial='normal'
                   animate={isOpen ? 'invert' : 'normal'}
                 />
@@ -99,7 +88,7 @@ export default function MobileLayout({ logo, frames, children }) {
                 className={classes.hamburger}
               >
                 <motion.div
-                  variants={invertColor}
+                  variants={consts.INVERT_COLOR}
                   initial='normal'
                   animate={isOpen ? 'invert' : 'normal'}
                 >
@@ -117,7 +106,22 @@ export default function MobileLayout({ logo, frames, children }) {
           )}
         </AnimatePresence>
       </div>
-      <div className={classes.contentWrapper}>{children}</div>
+      <motion.div
+        className={classes.contentWrapper}
+        animate={{
+          backgroundColor: bgColor
+        }}
+      >
+        {frames.map((frame, i) => (
+          <Frame
+            key={frame.id}
+            frame={frame}
+            onVisible={setVisible}
+            index={i}
+          />
+        ))}
+        {children}
+      </motion.div>
     </div>
   );
 }

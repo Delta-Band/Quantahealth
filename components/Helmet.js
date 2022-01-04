@@ -11,7 +11,7 @@ export default function Helmet({
   return (
     <Head>
       <meta charSet='utf-8' />
-      <link rel='icon' href={`${favicon}?v=${new Date().getTime()}`} />
+      <link rel='shortcut icon' href={`${favicon}?v=${new Date().getTime()}`} />
       <title>{title}</title>
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />

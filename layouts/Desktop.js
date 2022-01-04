@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Grid } from '@mui/material';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FrameIndicator } from '../components';
 
 const useStyles = makeStyles(theme => ({
   sideBar: {
-    position: 'absolute',
+    position: 'fixed',
     left: 0,
     top: 0,
     height: '100%',
@@ -42,17 +44,52 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DesktopLayout({ logo, frames }) {
+export default function DesktopLayout({ logo, frames, children }) {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.sideBar}>
-        <img className={classes.img} src={logo} alt='Quathealth Logo' />
-        <FrameIndicator frames={frames} vertical />
+        <AnimatePresence>
+          {logo && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.75 }}
+                className={classes.img}
+              >
+                <img className={classes.img} src={logo} alt='Quathealth Logo' />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.75 }}
+              >
+                <FrameIndicator frames={frames} vertical />
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
         <div />
       </div>
-      <div className={classes.contentWrapper}>Page Layout</div>
+      <div className={classes.contentWrapper}>
+        {frames.map(frame => (
+          <>
+            <img src={frame.media} alt='mdia' className='media' />
+            <Typography
+              className='content'
+              component='div'
+              dangerouslySetInnerHTML={{
+                __html: frame.richTxt
+              }}
+            ></Typography>
+          </>
+        ))}
+        {children}
+      </div>
     </>
   );
 }
