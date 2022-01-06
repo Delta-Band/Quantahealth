@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     zIndex: 2
   },
-  img: {
+  logoImg: {
     width: '100%',
     zIndex: 1
   },
@@ -45,7 +45,13 @@ const useStyles = makeStyles(theme => ({
     top: '50%',
     marginTop: '-40vh'
   },
+  frameWrapper: {
+    paddingLeft: '80vh !important',
+    paddingRight: '0px !important'
+  },
   richTxt: {
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(8),
     flexShrink: 0,
     fontSize: 16,
     lineHeight: '25px',
@@ -54,14 +60,6 @@ const useStyles = makeStyles(theme => ({
       lineHeight: '28px',
       fontWeight: 'bold'
     }
-  },
-  frameWrapper: {
-    paddingLeft: '80vh !important',
-    paddingRight: '0px !important'
-  },
-  richTxt: {
-    paddingRight: theme.spacing(4),
-    paddingLeft: theme.spacing(8)
   }
 }));
 
@@ -129,10 +127,10 @@ export default function MobileLandscape({ logo, frames, children }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
-                className={classes.img}
+                className={classes.logoImg}
               >
                 <motion.img
-                  className={classes.img}
+                  className={classes.logoImg}
                   src={logo}
                   alt='Quathealth Logo'
                   variants={consts.INVERT_COLOR}

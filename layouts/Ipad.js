@@ -2,27 +2,26 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
-import { FrameIndicator, Menu } from '../components';
+import { FrameIndicator, Menu, Frame, RichText } from '../components';
 import * as consts from './consts';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
     height: '100vh',
     maxHeight: '-webkit-fill-available',
-    overflow: 'hidden'
+    overflow: 'auto'
   },
   topBar: {
     height: 65,
     width: '100%',
-    background: 'grey',
-    flexShrink: 0,
-    paddingInline: theme.spacing(2),
+    paddingInlineStart: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'fixed',
+    top: 0,
+    left: 0
   },
   contentWrapper: {
     background: 'red',
@@ -31,21 +30,44 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     overflow: 'auto'
   },
-  img: {
+  logoImg: {
     height: '100%',
     zIndex: 1
   },
   hamburger: {
     zIndex: 1
+  },
+  frameWrapper: {
+    minHeight: 'unset !important',
+    paddingInline: theme.spacing(5),
+    '&:first-child': {
+      paddingTop: theme.spacing(10)
+    }
+  },
+  media: {
+    width: '100%'
   }
 }));
 
 export default function IpadLayout({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
+  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
 
   return (
-    <div className={classes.mainWrapper}>
+    <motion.div className={classes.mainWrapper}>
+      {frames.map((frame, i) => (
+        <Frame
+          key={frame.id}
+          frame={frame}
+          onVisible={setVisibleFrame}
+          index={i}
+          className={classes.frameWrapper}
+        >
+          <img src={frame.media} alt='mdia' className={classes.media} />
+          <RichText html={frame.richTxt} />
+        </Frame>
+      ))}
       <div className={classes.topBar}>
         <AnimatePresence>
           {logo && (
@@ -55,10 +77,10 @@ export default function IpadLayout({ logo, frames, children }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
-                className={classes.img}
+                className={classes.logoImg}
               >
                 <motion.img
-                  className={classes.img}
+                  className={classes.logoImg}
                   src={logo}
                   alt='Quathealth Logo'
                   variants={consts.INVERT_COLOR}
@@ -100,9 +122,7 @@ export default function IpadLayout({ logo, frames, children }) {
           )}
         </AnimatePresence>
       </div>
-      <div className={classes.contentWrapper}>
-        <div>{children}</div>
-      </div>
-    </div>
+      <div>{children}</div>
+    </motion.div>
   );
 }

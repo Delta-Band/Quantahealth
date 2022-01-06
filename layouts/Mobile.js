@@ -8,8 +8,6 @@ import * as consts from './consts';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
-    // display: 'flex',
-    // flexDirection: 'column',
     height: '100vh',
     maxHeight: '-webkit-fill-available',
     overflow: 'auto'
