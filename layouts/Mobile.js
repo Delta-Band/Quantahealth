@@ -45,9 +45,9 @@ const useStyles = makeStyles(theme => ({
 export default function MobileLayout({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
-  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const [visibleFrame, setVisibleFrame] = useState(frames ? frames[0] : null);
 
-  return (
+  return visibleFrame ? (
     <motion.div
       className={classes.mainWrapper}
       animate={{
@@ -122,5 +122,5 @@ export default function MobileLayout({ logo, frames, children }) {
       </div>
       {children}
     </motion.div>
-  );
+  ) : null;
 }
