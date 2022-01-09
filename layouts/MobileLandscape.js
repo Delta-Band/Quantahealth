@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
-import { Typography, Grid } from '@mui/material';
+import { useWindowSize } from '../hooks';
 import { FrameIndicator, Menu, Frame, RichText } from '../components';
 import * as consts from './consts';
 
@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => ({
   mainWrapper: {
     height: '100vh',
     maxHeight: '-webkit-fill-available',
-    overflow: 'auto',
-    paddingLeft: theme.spacing(7)
+    overflow: 'auto'
+    // paddingLeft: theme.spacing(7)
     // paddingRight: theme.spacing(0)
   },
   sideBar: {
@@ -27,31 +27,43 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    zIndex: 2
+    zIndex: 2,
+    pointerEvents: 'none'
   },
   logoImg: {
     width: '100%',
     zIndex: 1
   },
   hamburger: {
-    zIndex: 1
+    zIndex: 1,
+    pointerEvents: 'all'
   },
   media: {
     width: '80vh',
     height: '80vh',
     flexShrink: 0,
     position: 'fixed',
-    left: 80,
+    left: 'calc(50vw + 32.5px)',
     top: '50%',
-    marginTop: '-40vh'
+    pointerEvents: 'none',
+    maxHeight: '40vw',
+    maxWidth: '40vw',
+    '& img': {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0
+    }
   },
   frameWrapper: {
-    paddingLeft: '80vh !important',
+    paddingLeft: 'calc(50vw + 65px) !important',
     paddingRight: '0px !important'
   },
   richTxt: {
-    paddingRight: theme.spacing(4),
-    paddingLeft: theme.spacing(8),
+    paddingRight: '10vw',
+    paddingLeft: theme.spacing(3),
+    // background: 'green',
     flexShrink: 0,
     fontSize: 16,
     lineHeight: '25px',
@@ -83,6 +95,16 @@ export default function MobileLandscape({ logo, frames, children }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
   const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const mediaRef = useRef();
+  const windowSize = useWindowSize();
+
+  useEffect(() => {
+    const mediaEl = mediaRef.current;
+    const mediaRect = mediaEl.getBoundingClientRect();
+    mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
+    mediaEl.style.marginLeft = -mediaRect.width + 'px';
+    console.log(mediaRect.width);
+  }, [windowSize.width, windowSize.height]);
 
   return (
     <motion.div
@@ -91,22 +113,22 @@ export default function MobileLandscape({ logo, frames, children }) {
         backgroundColor: visibleFrame.bgColor
       }}
     >
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={visibleFrame.id}
-          src={visibleFrame.media}
-          alt='mdia'
-          className={classes.media}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          exit='exit'
-          transition={{
-            // x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.25 }
-          }}
-        />
-      </AnimatePresence>
+      <div className={classes.media} ref={mediaRef}>
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={visibleFrame.id}
+            src={visibleFrame.media}
+            alt='mdia'
+            variants={variants}
+            initial='enter'
+            animate='center'
+            exit='exit'
+            transition={{
+              opacity: { duration: 0.25 }
+            }}
+          />
+        </AnimatePresence>
+      </div>
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}

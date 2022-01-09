@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FrameIndicator, Frame, RichText } from '../components';
+import { useWindowSize } from '../hooks';
+import {
+  FrameIndicator,
+  Frame,
+  RichText,
+  DesktopNavigation
+} from '../components';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -20,11 +26,12 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     paddingInline: theme.spacing(3),
     paddingBlock: theme.spacing(2),
-    width: 200,
+    width: '20vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    pointerEvents: 'none',
     [theme.breakpoints.up('desktop')]: {
       width: 300,
       paddingInline: theme.spacing(6)
@@ -50,17 +57,23 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   },
   media: {
-    width: '50vh',
-    height: '50vh',
+    width: '80vh',
+    height: '80vh',
     flexShrink: 0,
     position: 'fixed',
-    left: '50vw',
+    left: 'calc(50vw + 32.5px)',
     top: '50%',
-    marginTop: '-25vh',
-    marginLeft: '-50vh',
-    [theme.breakpoints.up('desktop')]: {
-      // left: 'unset',
-      // right: 'calc(50vw - 125px)'
+    // background: 'red',
+    // transform: 'translate(-50%, -50%)',
+    maxHeight: '30vw',
+    maxWidth: '30vw',
+    pointerEvents: 'none',
+    '& img': {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0
     }
   },
   frameWrapper: {
@@ -73,10 +86,10 @@ const useStyles = makeStyles(theme => ({
   },
   richTxt: {
     // paddingRight: theme.spacing(8),
-    // paddingLeft: theme.spacing(10),
+    paddingLeft: 53,
     flexShrink: 0,
     fontSize: 16,
-    maxWidth: 400,
+    maxWidth: '27vw',
     lineHeight: '25px',
     '& .ql-size-huge': {
       fontSize: 24,
@@ -105,6 +118,16 @@ const variants = {
 export default function DesktopLayout({ logo, frames, children }) {
   const classes = useStyles();
   const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const windowSize = useWindowSize();
+  const mediaRef = useRef();
+
+  useEffect(() => {
+    const mediaEl = mediaRef.current;
+    const mediaRect = mediaEl.getBoundingClientRect();
+    mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
+    mediaEl.style.marginLeft = -mediaRect.width + 'px';
+    console.log(mediaRect.width);
+  }, [windowSize.width, windowSize.height]);
 
   return (
     <motion.div
@@ -113,22 +136,23 @@ export default function DesktopLayout({ logo, frames, children }) {
         backgroundColor: visibleFrame.bgColor
       }}
     >
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={visibleFrame.id}
-          src={visibleFrame.media}
-          alt='mdia'
-          className={classes.media}
-          variants={variants}
-          initial='enter'
-          animate='center'
-          exit='exit'
-          transition={{
-            // x: { type: 'spring', stiffness: 300, damping: 30 },
-            opacity: { duration: 0.25 }
-          }}
-        />
-      </AnimatePresence>
+      <div className={classes.media} ref={mediaRef}>
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={visibleFrame.id}
+            src={visibleFrame.media}
+            alt='mdia'
+            variants={variants}
+            initial='enter'
+            animate='center'
+            exit='exit'
+            transition={{
+              // x: { type: 'spring', stiffness: 300, damping: 30 },
+              opacity: { duration: 0.25 }
+            }}
+          />
+        </AnimatePresence>
+      </div>
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
@@ -170,6 +194,7 @@ export default function DesktopLayout({ logo, frames, children }) {
         </AnimatePresence>
         <div />
       </div>
+      <DesktopNavigation mainNavItms={['Data', 'Contact']} />
       {children}
     </motion.div>
   );

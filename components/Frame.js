@@ -23,7 +23,8 @@ export default function Frame({
   onVisible,
   index,
   children,
-  className
+  className,
+  style
 }) {
   const classes = useStyles();
   const [targetRef, percent] = useVisible();
@@ -36,7 +37,11 @@ export default function Frame({
   }, [percent, frame, onVisible, index]);
 
   return (
-    <div className={cx(className, classes.frameWrapper)} ref={targetRef}>
+    <div
+      className={cx(className, classes.frameWrapper)}
+      ref={targetRef}
+      style={style}
+    >
       {children}
     </div>
   );

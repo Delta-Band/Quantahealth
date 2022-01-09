@@ -12,6 +12,7 @@ import {
 export default function PageLayout({ logo, logoMobile, children }) {
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
+  const desktop = useMediaQuery(theme => theme.breakpoints.up('desktop'));
   const { portrait } = useWindowOrientation();
   const [brand, setBrand] = useState({});
 
@@ -25,7 +26,7 @@ export default function PageLayout({ logo, logoMobile, children }) {
 
   function getResponsiveLayout() {
     switch (true) {
-      case laptop:
+      case desktop:
         return (
           <DesktopLayout
             logo={brand.logoDesktop}
@@ -33,6 +34,15 @@ export default function PageLayout({ logo, logoMobile, children }) {
           >
             {children}
           </DesktopLayout>
+        );
+      case laptop:
+        return (
+          <MobileLandscapeLayout
+            logo={brand.logoMobile}
+            frames={children.props.frames}
+          >
+            {children}
+          </MobileLandscapeLayout>
         );
       case ipad:
         return (
