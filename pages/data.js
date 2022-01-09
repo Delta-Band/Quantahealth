@@ -11,9 +11,9 @@ export async function getStaticProps(context) {
     props: {
       frames: homeFrames,
       brand,
-      seo,
-      revalidate: 10
-    }
+      seo
+    },
+    revalidate: 10
   };
 }
 
