@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     top: 0,
     height: '100%',
     paddingInline: theme.spacing(3),
-    paddingBlock: theme.spacing(2),
+    paddingBlock: 20,
     width: '20vh',
     display: 'flex',
     flexDirection: 'column',
