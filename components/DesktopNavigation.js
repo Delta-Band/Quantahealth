@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Desktopnavigation({ mainNavItms = [] }, ref) {
+function DesktopNavigation({ mainNavItms = [] }, ref) {
   const classes = useStyles();
 
   return (
@@ -69,4 +69,4 @@ function Desktopnavigation({ mainNavItms = [] }, ref) {
   );
 }
 
-export default React.forwardRef(Desktopnavigation);
+export default React.forwardRef(DesktopNavigation);

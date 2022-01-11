@@ -103,13 +103,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: '200px !important',
     minHeight: 'unset !important',
     height: 410,
     background: '#000',
     position: 'relative',
     borderTopRightRadius: 80,
-    borderTopLeftRadius: 80
+    borderTopLeftRadius: 80,
+    width: '100vw',
+    marginLeft: -300,
+    border: '2px solid white',
+    borderBottom: 'none',
+    boxShadow: '0 -2px 13px rgba(0, 0, 0, 0.4)',
+    zIndex: 1
   }
 }));
 
@@ -179,18 +184,9 @@ export default function DesktopLayout({ logo, frames, children }) {
           <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
       ))}
-      <Frame
-        frame={{
-          bgColor: '#FFF',
-          id: 'footer-frame'
-        }}
-        onVisible={setVisibleFrame}
-        className={classes.footer}
-      >
-        <footer>
-          <Typography>Footer Section</Typography>
-        </footer>
-      </Frame>
+      <footer className={classes.footer}>
+        <Typography>Footer Section</Typography>
+      </footer>
       <div className={classes.sideBar}>
         <AnimatePresence>
           {logo && (
