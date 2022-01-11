@@ -99,7 +99,17 @@ const useStyles = makeStyles(theme => ({
     }
   },
   footer: {
-    padding: '0 !important'
+    padding: '0 !important',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: '200px !important',
+    minHeight: 'unset !important',
+    height: 410,
+    background: '#000',
+    position: 'relative',
+    borderTopRightRadius: 80,
+    borderTopLeftRadius: 80
   }
 }));
 

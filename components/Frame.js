@@ -32,7 +32,7 @@ export default function Frame({
     if (percent >= 0.5) {
       onVisible(frame);
     }
-  }, [percent, frame, onVisible]);
+  }, [percent]);
 
   return (
     <div
