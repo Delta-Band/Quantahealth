@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 export default function Frame({
   frame,
   onVisible,
-  index,
   children,
   className,
   style
@@ -31,10 +30,9 @@ export default function Frame({
 
   useEffect(() => {
     if (percent >= 0.5) {
-      //   console.log(`frame ${index} is visible`);
       onVisible(frame);
     }
-  }, [percent, frame, onVisible, index]);
+  }, [percent, frame, onVisible]);
 
   return (
     <div

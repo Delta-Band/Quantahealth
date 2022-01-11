@@ -8,6 +8,7 @@ import {
   RichText,
   DesktopNavigation
 } from '../components';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -96,6 +97,9 @@ const useStyles = makeStyles(theme => ({
       lineHeight: '28px',
       fontWeight: 'bold'
     }
+  },
+  footer: {
+    padding: '0 !important'
   }
 }));
 
@@ -138,19 +142,21 @@ export default function DesktopLayout({ logo, frames, children }) {
     >
       <div className={classes.media} ref={mediaRef}>
         <AnimatePresence initial={false}>
-          <motion.img
-            key={visibleFrame.id}
-            src={visibleFrame.media}
-            alt='mdia'
-            variants={variants}
-            initial='enter'
-            animate='center'
-            exit='exit'
-            transition={{
-              // x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.25 }
-            }}
-          />
+          {visibleFrame.media && (
+            <motion.img
+              key={visibleFrame.id}
+              src={visibleFrame.media}
+              alt='mdia'
+              variants={variants}
+              initial='enter'
+              animate='center'
+              exit='exit'
+              transition={{
+                // x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.25 }
+              }}
+            />
+          )}
         </AnimatePresence>
       </div>
       {frames.map((frame, i) => (
@@ -158,12 +164,23 @@ export default function DesktopLayout({ logo, frames, children }) {
           key={frame.id}
           frame={frame}
           onVisible={setVisibleFrame}
-          index={i}
           className={classes.frameWrapper}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
       ))}
+      <Frame
+        frame={{
+          bgColor: '#FFF',
+          id: 'footer-frame'
+        }}
+        onVisible={setVisibleFrame}
+        className={classes.footer}
+      >
+        <footer>
+          <Typography>Footer Section</Typography>
+        </footer>
+      </Frame>
       <div className={classes.sideBar}>
         <AnimatePresence>
           {logo && (

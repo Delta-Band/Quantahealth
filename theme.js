@@ -49,7 +49,7 @@ const theme = createTheme({
     fontSize: 18,
     allVariants: {
       fontWeight: 400,
-      color: '#FFF',
+      color: '#000',
       fontFamily: 'GT America',
       lineHeight: 1.8
     },
