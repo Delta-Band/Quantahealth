@@ -6,3 +6,4 @@ export { default as Frame } from './Frame';
 export { default as RichText } from './RichText';
 export { default as DesktopNavigation } from './DesktopNavigation';
 export { default as Footer } from './Footer';
+export { default as Media } from './Media';
