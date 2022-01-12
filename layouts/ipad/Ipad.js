@@ -1,134 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
-import { useWindowSize } from '../hooks';
-import { FrameIndicator, Menu, Frame, RichText } from '../components';
-import * as consts from './consts';
+import {
+  FrameIndicator,
+  Menu,
+  Frame,
+  RichText,
+  Footer
+} from '../../components';
+import * as consts from '../consts';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
     height: '100vh',
     maxHeight: '-webkit-fill-available',
     overflow: 'auto'
-    // paddingLeft: theme.spacing(7)
-    // paddingRight: theme.spacing(0)
   },
-  sideBar: {
-    height: '100%',
-    width: 65,
-    position: 'fixed',
-    left: 0,
-    top: 0,
-    flexShrink: 0,
+  topBar: {
+    height: 65,
+    width: '100%',
+    paddingInlineStart: theme.spacing(4),
+    paddingInlineEnd: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
-    paddingInline: theme.spacing(1.5),
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    zIndex: 2,
-    pointerEvents: 'none'
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    zIndex: 1
+  },
+  contentWrapper: {
+    background: 'red',
+    height: '100%',
+    width: '100%',
+    height: '100%',
+    overflow: 'auto'
   },
   logoImg: {
-    width: '100%',
+    height: '100%',
     zIndex: 1
   },
   hamburger: {
-    zIndex: 1,
-    pointerEvents: 'all'
-  },
-  media: {
-    width: '80vh',
-    height: '80vh',
-    flexShrink: 0,
-    position: 'fixed',
-    left: 'calc(50vw + 32.5px)',
-    top: '50%',
-    pointerEvents: 'none',
-    maxHeight: '40vw',
-    maxWidth: '40vw',
-    '& img': {
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      left: 0,
-      top: 0
-    }
+    zIndex: 1
   },
   frameWrapper: {
-    paddingLeft: 'calc(50vw + 65px) !important',
-    paddingRight: '0px !important'
-  },
-  richTxt: {
-    paddingRight: '10vw',
-    paddingLeft: theme.spacing(3),
-    // background: 'green',
-    flexShrink: 0,
-    fontSize: 16,
-    lineHeight: '25px',
-    '& .ql-size-huge': {
-      fontSize: 24,
-      lineHeight: '28px',
-      fontWeight: 'bold'
+    minHeight: 'unset !important',
+    paddingInline: theme.spacing(7),
+    '&:first-child': {
+      paddingTop: theme.spacing(10)
     }
-  }
+  },
+  media: {
+    width: '100%'
+  },
+  footer: {}
 }));
 
-const variants = {
-  enter: {
-    zIndex: 0,
-    opacity: 0
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1
-  },
-  exit: {
-    zIndex: 0,
-    opacity: 0
-  }
-};
-
-export default function MobileLandscape({ logo, frames, children }) {
+export default function IpadLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
   const [visibleFrame, setVisibleFrame] = useState(frames[0]);
-  const mediaRef = useRef();
-  const windowSize = useWindowSize();
-
-  useEffect(() => {
-    const mediaEl = mediaRef.current;
-    const mediaRect = mediaEl.getBoundingClientRect();
-    mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
-    mediaEl.style.marginLeft = -mediaRect.width + 'px';
-    console.log(mediaRect.width);
-  }, [windowSize.width, windowSize.height]);
 
   return (
-    <motion.div
-      className={classes.mainWrapper}
-      animate={{
-        backgroundColor: visibleFrame.bgColor
-      }}
-    >
-      <div className={classes.media} ref={mediaRef}>
-        <AnimatePresence initial={false}>
-          <motion.img
-            key={visibleFrame.id}
-            src={visibleFrame.media}
-            alt='mdia'
-            variants={variants}
-            initial='enter'
-            animate='center'
-            exit='exit'
-            transition={{
-              opacity: { duration: 0.25 }
-            }}
-          />
-        </AnimatePresence>
-      </div>
+    <motion.div className={classes.mainWrapper}>
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
@@ -137,10 +73,12 @@ export default function MobileLandscape({ logo, frames, children }) {
           index={i}
           className={classes.frameWrapper}
         >
-          <RichText html={frame.richTxt} className={classes.richTxt} />
+          <img src={frame.media} alt='mdia' className={classes.media} />
+          <RichText html={frame.richTxt} />
         </Frame>
       ))}
-      <div className={classes.sideBar}>
+      <Footer className={classes.footer} data={footer} />
+      <div className={classes.topBar}>
         <AnimatePresence>
           {logo && (
             <>
@@ -166,7 +104,7 @@ export default function MobileLandscape({ logo, frames, children }) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
               >
-                <FrameIndicator frames={frames} vertical />
+                <FrameIndicator frames={frames} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -189,13 +127,12 @@ export default function MobileLandscape({ logo, frames, children }) {
                   setOpen(false);
                 }}
                 items={['Data', 'Contact']}
-                horizontal
               />
             </>
           )}
         </AnimatePresence>
       </div>
-      {children}
+      <div>{children}</div>
     </motion.div>
   );
 }

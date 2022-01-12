@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useWindowSize } from '../hooks';
 import {
   FrameIndicator,
   Frame,
   RichText,
-  DesktopNavigation
-} from '../components';
-import { Typography } from '@material-ui/core';
+  DesktopNavigation,
+  Footer
+} from '../../components';
+import DesktopMedia from './DesktopMedia';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -57,26 +57,6 @@ const useStyles = makeStyles(theme => ({
   logoImg: {
     width: '100%'
   },
-  media: {
-    width: '80vh',
-    height: '80vh',
-    flexShrink: 0,
-    position: 'fixed',
-    left: 'calc(50vw + 32.5px)',
-    top: '50%',
-    // background: 'red',
-    // transform: 'translate(-50%, -50%)',
-    maxHeight: '30vw',
-    maxWidth: '30vw',
-    pointerEvents: 'none',
-    '& img': {
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      left: 0,
-      top: 0
-    }
-  },
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',
     paddingRight: '5vw !important',
@@ -99,54 +79,13 @@ const useStyles = makeStyles(theme => ({
     }
   },
   footer: {
-    padding: '0 !important',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 'unset !important',
-    height: 410,
-    background: '#000',
-    position: 'relative',
-    borderTopRightRadius: 80,
-    borderTopLeftRadius: 80,
-    width: '100vw',
-    marginLeft: -300,
-    border: '2px solid white',
-    borderBottom: 'none',
-    boxShadow: '0 -2px 13px rgba(0, 0, 0, 0.4)',
-    zIndex: 1
+    marginLeft: -300
   }
 }));
 
-const variants = {
-  enter: {
-    zIndex: 0,
-    opacity: 0
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1
-  },
-  exit: {
-    zIndex: 0,
-    opacity: 0
-  }
-};
-
-export default function DesktopLayout({ logo, frames, children }) {
+export default function DesktopLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [visibleFrame, setVisibleFrame] = useState(frames[0]);
-  const windowSize = useWindowSize();
-  const mediaRef = useRef();
-
-  useEffect(() => {
-    const mediaEl = mediaRef.current;
-    const mediaRect = mediaEl.getBoundingClientRect();
-    mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
-    mediaEl.style.marginLeft = -mediaRect.width + 'px';
-    console.log(mediaRect.width);
-  }, [windowSize.width, windowSize.height]);
 
   return (
     <motion.div
@@ -155,25 +94,7 @@ export default function DesktopLayout({ logo, frames, children }) {
         backgroundColor: visibleFrame.bgColor
       }}
     >
-      <div className={classes.media} ref={mediaRef}>
-        <AnimatePresence initial={false}>
-          {visibleFrame.media && (
-            <motion.img
-              key={visibleFrame.id}
-              src={visibleFrame.media}
-              alt='mdia'
-              variants={variants}
-              initial='enter'
-              animate='center'
-              exit='exit'
-              transition={{
-                // x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.25 }
-              }}
-            />
-          )}
-        </AnimatePresence>
-      </div>
+      <DesktopMedia visibleFrame={visibleFrame} />
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
@@ -184,9 +105,7 @@ export default function DesktopLayout({ logo, frames, children }) {
           <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
       ))}
-      <footer className={classes.footer}>
-        <Typography>Footer Section</Typography>
-      </footer>
+      <Footer className={classes.footer} data={footer} />
       <div className={classes.sideBar}>
         <AnimatePresence>
           {logo && (

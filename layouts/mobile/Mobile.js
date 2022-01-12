@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
-import { FrameIndicator, Menu, Frame, RichText } from '../components';
-import * as consts from './consts';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FrameIndicator,
+  Menu,
+  Frame,
+  RichText,
+  Footer
+} from '../../components';
+import * as consts from '../consts';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -12,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto'
   },
   topBar: {
-    height: 65,
+    height: 50,
     width: '100%',
     paddingInlineStart: theme.spacing(2),
     paddingBlock: theme.spacing(1.5),
@@ -21,14 +27,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     position: 'fixed',
     top: 0,
-    left: 0
-  },
-  contentWrapper: {
-    background: 'red',
-    height: '100%',
-    width: '100%',
-    height: '100%',
-    overflow: 'auto'
+    left: 0,
+    zIndex: 1
   },
   logoImg: {
     height: '100%',
@@ -37,25 +37,33 @@ const useStyles = makeStyles(theme => ({
   hamburger: {
     zIndex: 1
   },
-  frameWrapper: {
-    minHeight: 'unset !important',
-    paddingInline: theme.spacing(5),
-    '&:first-child': {
-      paddingTop: theme.spacing(10)
-    }
-  },
   media: {
     width: '100%'
+  },
+  frameWrapper: {
+    minHeight: 'unset !important',
+    '&:first-child': {
+      paddingTop: theme.spacing(8)
+    }
+  },
+  footer: {
+    borderTopRightRadius: '40px !important',
+    borderTopLeftRadius: '40px !important'
   }
 }));
 
-export default function IpadLayout({ logo, frames, children }) {
+export default function MobileLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
-  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const [visibleFrame, setVisibleFrame] = useState(frames ? frames[0] : null);
 
-  return (
-    <motion.div className={classes.mainWrapper}>
+  return visibleFrame ? (
+    <motion.div
+      className={classes.mainWrapper}
+      animate={{
+        backgroundColor: visibleFrame.bgColor
+      }}
+    >
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
@@ -68,6 +76,7 @@ export default function IpadLayout({ logo, frames, children }) {
           <RichText html={frame.richTxt} />
         </Frame>
       ))}
+      <Footer className={classes.footer} data={footer} />
       <div className={classes.topBar}>
         <AnimatePresence>
           {logo && (
@@ -122,7 +131,7 @@ export default function IpadLayout({ logo, frames, children }) {
           )}
         </AnimatePresence>
       </div>
-      <div>{children}</div>
+      {children}
     </motion.div>
-  );
+  ) : null;
 }

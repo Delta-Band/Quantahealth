@@ -1,4 +1,4 @@
-export { default as MobileLayout } from './Mobile';
-export { default as MobileLandscapeLayout } from './MobileLandscape';
-export { default as IpadLayout } from './Ipad';
-export { default as DesktopLayout } from './Desktop';
+export { default as MobileLayout } from './mobile/Mobile';
+export { default as MobileLandscapeLayout } from './mobileLandscape/MobileLandscape';
+export { default as IpadLayout } from './ipad/Ipad';
+export { default as DesktopLayout } from './desktop/Desktop';

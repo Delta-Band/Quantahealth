@@ -8,11 +8,13 @@ export async function getStaticProps(context) {
   const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
   const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
+  const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
   return {
     props: {
       frames: homeFrames,
       brand,
-      seo
+      seo,
+      footer
     },
     revalidate: 10
   };

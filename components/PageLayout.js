@@ -9,7 +9,7 @@ import {
   IpadLayout
 } from '../layouts';
 
-export default function PageLayout({ logo, logoMobile, children }) {
+export default function PageLayout({ children, footer }) {
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
   const desktop = useMediaQuery(theme => theme.breakpoints.up('desktop'));
@@ -31,6 +31,7 @@ export default function PageLayout({ logo, logoMobile, children }) {
           <DesktopLayout
             logo={brand.logoDesktop}
             frames={children.props.frames}
+            footer={children.props.footer}
           >
             {children}
           </DesktopLayout>
@@ -40,26 +41,36 @@ export default function PageLayout({ logo, logoMobile, children }) {
           <MobileLandscapeLayout
             logo={brand.logoMobile}
             frames={children.props.frames}
+            footer={children.props.footer}
           >
             {children}
           </MobileLandscapeLayout>
         );
       case ipad:
         return (
-          <IpadLayout logo={brand.logoDesktop} frames={children.props.frames}>
+          <IpadLayout
+            logo={brand.logoDesktop}
+            frames={children.props.frames}
+            footer={children.props.footer}
+          >
             {children}
           </IpadLayout>
         );
       default:
         // defaults to smartphones
         return portrait ? (
-          <MobileLayout logo={brand.logoMobile} frames={children.props.frames}>
+          <MobileLayout
+            logo={brand.logoMobile}
+            frames={children.props.frames}
+            footer={children.props.footer}
+          >
             {children}
           </MobileLayout>
         ) : (
           <MobileLandscapeLayout
             logo={brand.logoMobile}
             frames={children.props.frames}
+            footer={children.props.footer}
           >
             {children}
           </MobileLandscapeLayout>
