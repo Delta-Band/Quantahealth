@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useVisible } from 'react-hooks-visible';
 import { InView } from 'react-intersection-observer';
-
 import cx from 'classnames';
-import { Typography, Grid } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   frameWrapper: {
@@ -26,34 +23,14 @@ export default function Frame({
   children,
   className,
   style,
-  index,
-  scrollDirection,
-  allFrames
+  index
 }) {
   const classes = useStyles();
-  const [targetRef, percent] = useVisible();
-  const [ref, setRef] = React.useState();
-  // const { isIntersecting } = useIntersectionObserver(ref, {
-  //   root: document.getElementById('mainWrapper')
-  // });
-
-  // useEffect(() => {
-  //   if (percent >= 0.5) {
-  //     onVisible(frame);
-  //   }
-  // }, [percent]);
-
-  // useEffect(() => {
-  //   if (isIntersecting) {
-  //     onVisible(frame);
-  //   }
-  // }, [isIntersecting]);
 
   return (
     <InView rootMargin='-120px 0px -120px 0px'>
       {({ inView, ref, entry }) => {
         inView ? console.log(`inView:`, frame.label) : null;
-        // inView ? onVisible(frame) : null;
         if (inView) {
           onVisible(index);
         }
