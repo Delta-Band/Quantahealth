@@ -1,13 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { motion } from 'framer-motion';
+import cx from 'classnames';
+import { height } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
   media: {
-    width: '100%'
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0
   }
 }));
 
-export default function Media({ frame, visibleFrame }) {
+export default function Media({ frame, visibleFrame, className }) {
   const classes = useStyles();
   const videoRef = useRef();
 
@@ -24,13 +31,28 @@ export default function Media({ frame, visibleFrame }) {
   return (
     <>
       {frame.mediaType === 'image' && (
-        <img src={frame.media} alt='mdia' className={classes.media} />
+        <motion.img
+          src={frame.media}
+          alt='mdia'
+          className={cx(classes.media, className)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        />
       )}
       {frame.mediaType === 'mp4' && (
-        <video ref={videoRef} playsInline muted className={classes.media}>
+        <motion.video
+          ref={videoRef}
+          playsInline
+          muted
+          className={cx(classes.media, className)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <source src={frame.media} type='video/mp4' />
           Your browser does not support the video tag.
-        </video>
+        </motion.video>
       )}
     </>
   );

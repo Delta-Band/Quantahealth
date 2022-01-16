@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
+import { useScrollDirection } from 'react-use-scroll-direction';
 import { useWindowSize } from '../../hooks';
 import {
   FrameIndicator,
   Menu,
   Frame,
   RichText,
-  Footer
+  Footer,
+  Media
 } from '../../components';
 import * as consts from '../consts';
 
@@ -107,9 +109,11 @@ const variants = {
 export default function MobileLandscape({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
-  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
+  const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const mediaRef = useRef();
   const windowSize = useWindowSize();
+  const { scrollTargetRef, scrollDirection } = useScrollDirection();
 
   useEffect(() => {
     const mediaEl = mediaRef.current;
@@ -119,26 +123,25 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
     console.log(mediaRect.width);
   }, [windowSize.width, windowSize.height]);
 
+  useEffect(() => {
+    setVisibleFrame(frames[visibleFrameIndex]);
+  }, [visibleFrameIndex]);
+
   return (
     <motion.div
       className={classes.mainWrapper}
+      ref={scrollTargetRef}
+      id='mainWrapper'
       animate={{
         backgroundColor: visibleFrame.bgColor
       }}
     >
       <div className={classes.media} ref={mediaRef}>
         <AnimatePresence initial={false}>
-          <motion.img
+          <Media
             key={visibleFrame.id}
-            src={visibleFrame.media}
-            alt='mdia'
-            variants={variants}
-            initial='enter'
-            animate='center'
-            exit='exit'
-            transition={{
-              opacity: { duration: 0.25 }
-            }}
+            frame={visibleFrame}
+            visibleFrame={visibleFrame}
           />
         </AnimatePresence>
       </div>
@@ -146,9 +149,17 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
         <Frame
           key={frame.id}
           frame={frame}
-          onVisible={setVisibleFrame}
+          onVisible={indx => {
+            setVisibleFrameIndex(
+              scrollDirection === 'UP'
+                ? Math.min(indx, visibleFrameIndex)
+                : Math.max(indx, visibleFrameIndex)
+            );
+          }}
           index={i}
+          allFrames={frames}
           className={classes.frameWrapper}
+          scrollDirection={scrollDirection}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
