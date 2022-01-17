@@ -9,7 +9,8 @@ import {
   Frame,
   RichText,
   Footer,
-  Media
+  Media,
+  CustomLinkButton
 } from '../../components';
 import * as consts from '../consts';
 
@@ -117,6 +118,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
             className={classes.media}
           />
           <RichText html={frame.richTxt} className={classes.richTxt} />
+          <CustomLinkButton frame={frame} />
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />

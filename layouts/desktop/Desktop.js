@@ -3,7 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { motion, AnimatePresence } from 'framer-motion';
 import DesktopNavigation from './DesktopNavigation';
-import { FrameIndicator, Frame, RichText, Footer } from '../../components';
+import {
+  FrameIndicator,
+  Frame,
+  RichText,
+  Footer,
+  CustomLinkButton
+} from '../../components';
 import DesktopMedia from './DesktopMedia';
 
 const useStyles = makeStyles(theme => ({
@@ -119,6 +125,7 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
           className={classes.frameWrapper}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
+          <CustomLinkButton frame={frame} />
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />

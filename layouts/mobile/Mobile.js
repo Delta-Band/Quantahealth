@@ -3,7 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import NavBar from './NavBar';
-import { Frame, RichText, Footer, Media } from '../../components';
+import {
+  Frame,
+  RichText,
+  Footer,
+  Media,
+  CustomLinkButton
+} from '../../components';
 
 const useStyles = makeStyles(theme => ({
   mainWrapper: {
@@ -79,6 +85,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             className={classes.media}
           />
           <RichText html={frame.richTxt} className={classes.richTxt} />
+          <CustomLinkButton frame={frame} />
         </Frame>
       ))}
       <NavBar logo={logo} frames={frames} />

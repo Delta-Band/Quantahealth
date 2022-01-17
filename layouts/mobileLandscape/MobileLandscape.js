@@ -10,7 +10,8 @@ import {
   Frame,
   RichText,
   Footer,
-  Media
+  Media,
+  CustomLinkButton
 } from '../../components';
 import * as consts from '../consts';
 
@@ -91,6 +92,11 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: '40px !important',
     borderTopLeftRadius: '40px !important',
     maxHeight: 'calc(100% - 50px) !important'
+  },
+  customLinkBtn: {
+    paddingRight: '10vw',
+    paddingLeft: theme.spacing(3),
+    width: '100%'
   }
 }));
 
@@ -165,6 +171,9 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
           className={classes.frameWrapper}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
+          <div className={classes.customLinkBtn}>
+            <CustomLinkButton frame={frame} />
+          </div>
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />
