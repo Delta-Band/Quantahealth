@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { Button } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   menuWrapper: {
@@ -70,6 +71,7 @@ const listItem = {
 
 export default function Menu({ open, close, items, horizontal = false }) {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <motion.div
@@ -84,7 +86,10 @@ export default function Menu({ open, close, items, horizontal = false }) {
         <motion.li variants={listItem}>
           <Link href='/'>
             <a>
-              <Button color='secondary' fullWidth>
+              <Button
+                fullWidth
+                color={router.pathname === '/' ? 'primary' : 'secondary'}
+              >
                 Home
               </Button>
             </a>
@@ -94,7 +99,14 @@ export default function Menu({ open, close, items, horizontal = false }) {
           <motion.li key={itm} variants={listItem} onClick={close}>
             <Link href={`/${itm.toLowerCase()}`}>
               <a>
-                <Button color='secondary' fullWidth>
+                <Button
+                  color={
+                    router.pathname === `/${itm.toLowerCase()}`
+                      ? 'primary'
+                      : 'secondary'
+                  }
+                  fullWidth
+                >
                   {itm}
                 </Button>
               </a>

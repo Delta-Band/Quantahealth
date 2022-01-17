@@ -26,7 +26,7 @@ const theme = createTheme({
     },
     secondary: {
       light: '#507cf4',
-      main: '#4431ff',
+      main: '#FFDACE',
       dark: '#1402c4',
       contrastText: '#fff'
     },
@@ -36,6 +36,9 @@ const theme = createTheme({
     text: {
       primary: '#FFF',
       secondary: '#4f4f4f'
+    },
+    link: {
+      primary: '#0039ff'
     },
     action: {
       // disabledBackground: 'set color of background here',
@@ -163,7 +166,7 @@ const theme = createTheme({
         }
       },
       textSecondary: {
-        color: '#507cf4'
+        color: '#FFDACE'
       },
       text: {
         marginTop: -1,

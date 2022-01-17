@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   desktopnavigationWrapper: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 function DesktopNavigation({ mainNavItms = [] }, ref) {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
     <motion.div
@@ -52,7 +54,10 @@ function DesktopNavigation({ mainNavItms = [] }, ref) {
       <div className={classes.mainNavItms}>
         <Link href='/'>
           <a>
-            <Button color='secondary' fullWidth>
+            <Button
+              color={router.pathname === '/' ? 'primary' : 'secondary'}
+              fullWidth
+            >
               Home
             </Button>
           </a>
@@ -60,7 +65,15 @@ function DesktopNavigation({ mainNavItms = [] }, ref) {
         {mainNavItms.map(navItm => (
           <Link href={`/${navItm.toLowerCase()}`} key={navItm}>
             <a>
-              <Button color='secondary'>{navItm}</Button>
+              <Button
+                color={
+                  router.pathname === `/${navItm.toLowerCase()}`
+                    ? 'primary'
+                    : 'secondary'
+                }
+              >
+                {navItm}
+              </Button>
             </a>
           </Link>
         ))}

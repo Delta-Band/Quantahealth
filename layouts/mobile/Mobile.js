@@ -20,6 +20,20 @@ const useStyles = makeStyles(theme => ({
       paddingTop: theme.spacing(8)
     }
   },
+  richTxt: {
+    flexShrink: 0,
+    fontSize: 16,
+    lineHeight: '25px',
+    '& .ql-size-huge': {
+      fontSize: 24,
+      lineHeight: '28px',
+      fontWeight: 'bold'
+    },
+    '& a': {
+      color: theme.palette.link.primary,
+      textDecoration: 'underline'
+    }
+  },
   footer: {
     borderTopRightRadius: '40px !important',
     borderTopLeftRadius: '40px !important'
@@ -64,7 +78,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
             className={classes.media}
           />
-          <RichText html={frame.richTxt} />
+          <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
       ))}
       <NavBar logo={logo} frames={frames} />

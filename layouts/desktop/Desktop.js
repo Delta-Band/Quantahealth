@@ -2,13 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  FrameIndicator,
-  Frame,
-  RichText,
-  DesktopNavigation,
-  Footer
-} from '../../components';
+import DesktopNavigation from './DesktopNavigation';
+import { FrameIndicator, Frame, RichText, Footer } from '../../components';
 import DesktopMedia from './DesktopMedia';
 
 const useStyles = makeStyles(theme => ({
@@ -67,7 +62,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   richTxt: {
-    // paddingRight: theme.spacing(8),
     paddingLeft: 53,
     flexShrink: 0,
     fontSize: 16,
@@ -77,10 +71,15 @@ const useStyles = makeStyles(theme => ({
       fontSize: 24,
       lineHeight: '28px',
       fontWeight: 'bold'
+    },
+    '& a': {
+      color: theme.palette.link.primary,
+      textDecoration: 'underline'
     }
   },
   footer: {
-    marginLeft: -300
+    marginLeft: -174,
+    width: 'calc(100vw - 170px)'
   }
 }));
 

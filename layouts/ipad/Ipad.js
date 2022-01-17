@@ -33,6 +33,22 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     zIndex: 1
   },
+  richTxt: {
+    paddingLeft: 53,
+    flexShrink: 0,
+    fontSize: 16,
+    maxWidth: '27vw',
+    lineHeight: '25px',
+    '& .ql-size-huge': {
+      fontSize: 24,
+      lineHeight: '28px',
+      fontWeight: 'bold'
+    },
+    '& a': {
+      color: theme.palette.link.primary,
+      textDecoration: 'underline'
+    }
+  },
   contentWrapper: {
     background: 'red',
     height: '100%',
@@ -100,7 +116,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
             className={classes.media}
           />
-          <RichText html={frame.richTxt} />
+          <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />

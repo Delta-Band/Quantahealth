@@ -79,6 +79,10 @@ const useStyles = makeStyles(theme => ({
       fontSize: 24,
       lineHeight: '28px',
       fontWeight: 'bold'
+    },
+    '& a': {
+      color: theme.palette.link.primary,
+      textDecoration: 'underline'
     }
   },
   footer: {
