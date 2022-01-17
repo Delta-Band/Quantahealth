@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useScrollDirection } from 'react-use-scroll-direction';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FrameIndicator,
@@ -85,11 +86,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function DesktopLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
-  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
+  const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
+  const { scrollTargetRef, scrollDirection } = useScrollDirection();
+
+  useEffect(() => {
+    setVisibleFrame(frames[visibleFrameIndex]);
+  }, [visibleFrameIndex]);
 
   return (
     <motion.div
       className={classes.mainWrapper}
+      ref={scrollTargetRef}
       animate={{
         backgroundColor: visibleFrame.bgColor
       }}
@@ -98,8 +106,17 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
+          index={i}
           frame={frame}
-          onVisible={setVisibleFrame}
+          rootMargin='-50% 0px -50% 0px'
+          onVisible={indx => {
+            if (!scrollDirection) return;
+            setVisibleFrameIndex(
+              scrollDirection === 'UP'
+                ? Math.min(indx, visibleFrameIndex)
+                : Math.max(indx, visibleFrameIndex)
+            );
+          }}
           className={classes.frameWrapper}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />

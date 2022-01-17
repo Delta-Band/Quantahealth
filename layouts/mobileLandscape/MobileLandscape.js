@@ -158,9 +158,7 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
             );
           }}
           index={i}
-          allFrames={frames}
           className={classes.frameWrapper}
-          scrollDirection={scrollDirection}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
         </Frame>

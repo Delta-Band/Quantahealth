@@ -83,7 +83,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
         <Frame
           key={frame.id}
           frame={frame}
-          rootMargin='-400px 0px -400px 0px'
+          rootMargin='-50% 0px -50% 0px'
           onVisible={indx => {
             if (!scrollDirection) return;
             setVisibleFrameIndex(

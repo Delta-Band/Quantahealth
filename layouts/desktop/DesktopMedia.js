@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useWindowSize } from '../../hooks';
+import { Media } from '../../components';
 
 const useStyles = makeStyles(theme => ({
   desktopmediaWrapper: {
@@ -58,21 +59,11 @@ export default function DesktopMedia({ visibleFrame }) {
   return (
     <div className={classes.desktopmediaWrapper} ref={mediaRef}>
       <AnimatePresence initial={false}>
-        {visibleFrame.media && (
-          <motion.img
-            key={visibleFrame.id}
-            src={visibleFrame.media}
-            alt='mdia'
-            variants={variants}
-            initial='enter'
-            animate='center'
-            exit='exit'
-            transition={{
-              // x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.25 }
-            }}
-          />
-        )}
+        <Media
+          key={visibleFrame.id}
+          frame={visibleFrame}
+          visibleFrame={visibleFrame}
+        />
       </AnimatePresence>
     </div>
   );
