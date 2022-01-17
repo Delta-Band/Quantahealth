@@ -150,6 +150,7 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
           key={frame.id}
           frame={frame}
           onVisible={indx => {
+            if (!scrollDirection) return;
             setVisibleFrameIndex(
               scrollDirection === 'UP'
                 ? Math.min(indx, visibleFrameIndex)

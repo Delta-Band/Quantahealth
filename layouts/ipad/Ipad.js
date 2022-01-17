@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
+import { useScrollDirection } from 'react-use-scroll-direction';
 import {
   FrameIndicator,
   Menu,
   Frame,
   RichText,
-  Footer
+  Footer,
+  Media
 } from '../../components';
 import * as consts from '../consts';
 
@@ -46,14 +48,14 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1
   },
   frameWrapper: {
-    minHeight: 'unset !important',
+    // minHeight: 'unset !important',
     paddingInline: theme.spacing(7),
     '&:first-child': {
       paddingTop: theme.spacing(10)
     }
   },
   media: {
-    width: '100%'
+    position: 'relative !important'
   },
   footer: {}
 }));
@@ -61,19 +63,43 @@ const useStyles = makeStyles(theme => ({
 export default function IpadLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
-  const [visibleFrame, setVisibleFrame] = useState(frames[0]);
+  const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
+  const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
+  const { scrollTargetRef, scrollDirection } = useScrollDirection();
+
+  useEffect(() => {
+    setVisibleFrame(frames[visibleFrameIndex]);
+  }, [visibleFrameIndex]);
 
   return (
-    <motion.div className={classes.mainWrapper}>
+    <motion.div
+      className={classes.mainWrapper}
+      ref={scrollTargetRef}
+      animate={{
+        backgroundColor: visibleFrame.bgColor
+      }}
+    >
       {frames.map((frame, i) => (
         <Frame
           key={frame.id}
           frame={frame}
-          onVisible={setVisibleFrame}
+          rootMargin='-400px 0px -400px 0px'
+          onVisible={indx => {
+            if (!scrollDirection) return;
+            setVisibleFrameIndex(
+              scrollDirection === 'UP'
+                ? Math.min(indx, visibleFrameIndex)
+                : Math.max(indx, visibleFrameIndex)
+            );
+          }}
           index={i}
           className={classes.frameWrapper}
         >
-          <img src={frame.media} alt='mdia' className={classes.media} />
+          <Media
+            frame={frame}
+            visibleFrame={visibleFrame}
+            className={classes.media}
+          />
           <RichText html={frame.richTxt} />
         </Frame>
       ))}

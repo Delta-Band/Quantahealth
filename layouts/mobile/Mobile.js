@@ -49,6 +49,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
           key={frame.id}
           frame={frame}
           onVisible={indx => {
+            if (!scrollDirection) return;
             setVisibleFrameIndex(
               scrollDirection === 'UP'
                 ? Math.min(indx, visibleFrameIndex)
@@ -63,7 +64,6 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
             className={classes.media}
           />
-          {/* <img src={frame.media} alt='mdia' className={classes.media} /> */}
           <RichText html={frame.richTxt} />
         </Frame>
       ))}

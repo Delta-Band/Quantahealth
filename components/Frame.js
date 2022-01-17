@@ -23,14 +23,15 @@ export default function Frame({
   children,
   className,
   style,
-  index
+  index,
+  rootMargin = '-120px 0px -120px 0px'
 }) {
   const classes = useStyles();
 
   return (
-    <InView rootMargin='-120px 0px -120px 0px'>
+    <InView rootMargin={rootMargin}>
       {({ inView, ref, entry }) => {
-        inView ? console.log(`inView:`, frame.label) : null;
+        // inView ? console.log(`inView:`, frame.label) : null;
         if (inView) {
           onVisible(index);
         }
