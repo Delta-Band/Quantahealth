@@ -9,12 +9,16 @@ import {
   IpadLayout
 } from '../layouts';
 
-export default function PageLayout({ children, footer }) {
+export default function PageLayout({ children }) {
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
   const desktop = useMediaQuery(theme => theme.breakpoints.up('desktop'));
   const { portrait } = useWindowOrientation();
   const [brand, setBrand] = useState({});
+
+  children.props.frames.forEach(frame => {
+    console.log(frame.media);
+  });
 
   useEffect(() => {
     reactor.init();

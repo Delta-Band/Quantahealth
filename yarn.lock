@@ -185,14 +185,15 @@
     to-fast-properties "^2.0.0"
 
 "@deltaband/delta-next-mui@^0.1.37":
-  version "0.1.37"
-  resolved "https://registry.yarnpkg.com/@deltaband/delta-next-mui/-/delta-next-mui-0.1.37.tgz#32b6af79134f18ab6bda161645ce32ad5de49518"
-  integrity sha512-CNMpIH9yf1r3eMwKw93Bq15h9tT1RKyvQfbB66zFKwlv/UW7cp8vHuz6+SIxCrlZq0oO2Qeou/X2MBg+WdTbIA==
+  version "0.1.40"
+  resolved "https://registry.yarnpkg.com/@deltaband/delta-next-mui/-/delta-next-mui-0.1.40.tgz#996d27bdfd71a1ac2adad930b249dc710819af9d"
+  integrity sha512-9RB4pq7MWtB6cmp4pW7XHJAS8ocAVmPpIiUNRPuet+YGJQ9OS9mwFJI71omMHHM9fS9jc2UV0/5xLltuf+3PHw==
   dependencies:
     "@popmotion/popcorn" "^0.4.4"
     popmotion "^9.4.0"
     react-ga "^3.3.0"
     screenfull "^5.1.0"
+    sortablejs "^1.14.0"
 
 "@emotion/babel-plugin@^11.3.0":
   version "11.7.2"

@@ -16,7 +16,9 @@ const useStyles = makeStyles(theme => ({
   mainWrapper: {
     height: '100vh',
     maxHeight: '-webkit-fill-available',
-    overflow: 'auto',
+    overflow: 'auto'
+  },
+  innerWrapper: {
     paddingLeft: 200,
     [theme.breakpoints.up('desktop')]: {
       paddingLeft: 300
@@ -62,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',
     paddingRight: '5vw !important',
-    // maxWidth: 1090,
+    minHeight: '100vh',
     [theme.breakpoints.up('desktop')]: {
       paddingLeft: 'calc(50vw - 167px) !important'
     }
@@ -83,9 +85,31 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline'
     }
   },
-  footer: {
-    marginLeft: -174,
-    width: 'calc(100vw - 170px) !important'
+  footerWrapper: {
+    // paddingInline: theme.spacing(3),
+    background: 'black',
+    width: '100vw',
+    width: '100%',
+    paddingLeft: 'calc(50vw + 32.5px)',
+    zIndex: 1,
+    boxShadow: '0 2px 13px rgba(0, 0, 0, 0.4)',
+    position: 'relative',
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    // transform: 'translateX(-100%)'
+  },
+  footerInner: {
+    padding: 0,
+    width: '80vh',
+    maxWidth: '30vw',
+    transform: 'translateX(-100%)',
+    paddingInline: theme.spacing(3),
+    paddingBlock: theme.spacing(8),
+    borderRadius: 0
   }
 }));
 
@@ -107,62 +131,66 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
         backgroundColor: visibleFrame.bgColor
       }}
     >
-      <DesktopMedia visibleFrame={visibleFrame} />
-      {frames.map((frame, i) => (
-        <Frame
-          key={frame.id}
-          index={i}
-          frame={frame}
-          rootMargin='-50% 0px -50% 0px'
-          onVisible={indx => {
-            if (!scrollDirection) return;
-            setVisibleFrameIndex(
-              scrollDirection === 'UP'
-                ? Math.min(indx, visibleFrameIndex)
-                : Math.max(indx, visibleFrameIndex)
-            );
-          }}
-          className={classes.frameWrapper}
-        >
-          <div className={classes.richTxt}>
-            <RichText html={frame.richTxt} />
-            <CustomLinkButton frame={frame} />
-          </div>
-        </Frame>
-      ))}
-      <Footer className={classes.footer} data={footer} />
-      <div className={classes.sideBar}>
-        <AnimatePresence>
-          {logo && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.75 }}
-                className={classes.logoImg}
-              >
-                <img
+      <div className={classes.innerWrapper}>
+        <DesktopMedia visibleFrame={visibleFrame} />
+        {frames.map((frame, i) => (
+          <Frame
+            key={frame.id}
+            index={i}
+            frame={frame}
+            rootMargin='-50% 0px -50% 0px'
+            onVisible={indx => {
+              if (!scrollDirection) return;
+              setVisibleFrameIndex(
+                scrollDirection === 'UP'
+                  ? Math.min(indx, visibleFrameIndex)
+                  : Math.max(indx, visibleFrameIndex)
+              );
+            }}
+            className={classes.frameWrapper}
+          >
+            <div className={classes.richTxt}>
+              <RichText html={frame.richTxt} />
+              <CustomLinkButton frame={frame} />
+            </div>
+          </Frame>
+        ))}
+        <div className={classes.sideBar}>
+          <AnimatePresence>
+            {logo && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.75 }}
                   className={classes.logoImg}
-                  src={logo}
-                  alt='Quathealth Logo'
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.75 }}
-              >
-                <FrameIndicator frames={frames} vertical />
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-        <div />
+                >
+                  <img
+                    className={classes.logoImg}
+                    src={logo}
+                    alt='Quathealth Logo'
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.75 }}
+                >
+                  <FrameIndicator frames={frames} vertical />
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+          <div />
+        </div>
+        <DesktopNavigation mainNavItms={['Data', 'Contact']} />
+        {children}
       </div>
-      <DesktopNavigation mainNavItms={['Data', 'Contact']} />
-      {children}
+      <div className={classes.footerWrapper}>
+        <Footer data={footer} className={classes.footerInner} />
+      </div>
     </motion.div>
   );
 }
