@@ -89,9 +89,9 @@ const useStyles = makeStyles(theme => ({
   footer: {
     marginLeft: 66,
     width: 'calc(100vw - 66px - 16px) !important',
-    borderTopRightRadius: '40px !important',
-    borderTopLeftRadius: '40px !important',
-    maxHeight: 'calc(100% - 50px) !important'
+    borderTopRightRadius: '10px !important',
+    borderTopLeftRadius: '30px !important',
+    paddingBottom: theme.spacing(1)
   },
   customLinkBtn: {
     paddingRight: '10vw',

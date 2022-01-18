@@ -41,8 +41,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   footer: {
-    borderTopRightRadius: '40px !important',
-    borderTopLeftRadius: '40px !important'
+    borderTopRightRadius: '0px !important',
+    borderTopLeftRadius: '30px !important',
+    paddingBottom: theme.spacing(2)
   }
 }));
 

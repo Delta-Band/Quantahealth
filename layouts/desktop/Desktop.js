@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',
     paddingRight: '5vw !important',
-    minHeight: '100vh',
+    minHeight: '100vh !important',
     [theme.breakpoints.up('desktop')]: {
       paddingLeft: 'calc(50vw - 167px) !important'
     }
@@ -91,6 +91,7 @@ const useStyles = makeStyles(theme => ({
     width: '100vw',
     width: '100%',
     paddingLeft: 'calc(50vw + 32.5px)',
+    paddingRight: '0',
     zIndex: 1,
     boxShadow: '0 2px 13px rgba(0, 0, 0, 0.4)',
     position: 'relative',
@@ -178,7 +179,11 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.75 }}
                 >
-                  <FrameIndicator frames={frames} vertical />
+                  <FrameIndicator
+                    frames={frames}
+                    vertical
+                    visibleFrame={visibleFrame}
+                  />
                 </motion.div>
               </>
             )}
