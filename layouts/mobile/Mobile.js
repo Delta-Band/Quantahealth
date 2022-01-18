@@ -89,7 +89,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
           <CustomLinkButton frame={frame} />
         </Frame>
       ))}
-      <NavBar logo={logo} frames={frames} />
+      <NavBar logo={logo} frames={frames} visibleFrame={visibleFrame} />
       <Footer className={classes.footer} data={footer} />
       {children}
     </motion.div>

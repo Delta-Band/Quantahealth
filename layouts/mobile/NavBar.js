@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar({ logo, frames }) {
+export default function NavBar({ logo, frames, visibleFrame }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
 
@@ -59,7 +59,7 @@ export default function NavBar({ logo, frames }) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.75 }}
             >
-              <FrameIndicator frames={frames} />
+              <FrameIndicator frames={frames} visibleFrame={visibleFrame} />
             </motion.div>
             <motion.div
               initial={{ opacity: 0 }}

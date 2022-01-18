@@ -203,7 +203,11 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
               >
-                <FrameIndicator frames={frames} vertical />
+                <FrameIndicator
+                  frames={frames}
+                  vertical
+                  visibleFrame={visibleFrame}
+                />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}

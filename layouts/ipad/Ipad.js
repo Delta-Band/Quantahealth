@@ -150,7 +150,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
               >
-                <FrameIndicator frames={frames} />
+                <FrameIndicator frames={frames} visibleFrame={visibleFrame} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
