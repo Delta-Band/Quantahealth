@@ -86,22 +86,15 @@ const useStyles = makeStyles(theme => ({
     }
   },
   footerWrapper: {
-    // paddingInline: theme.spacing(3),
     background: 'black',
     width: '100vw',
     width: '100%',
     paddingLeft: 'calc(50vw + 32.5px)',
     paddingRight: '0',
     zIndex: 1,
-    boxShadow: '0 2px 13px rgba(0, 0, 0, 0.4)',
     position: 'relative',
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // transform: 'translateX(-100%)'
   },
   footerInner: {
     padding: 0,
@@ -190,7 +183,7 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
           </AnimatePresence>
           <div />
         </div>
-        <DesktopNavigation mainNavItms={['Data', 'Contact']} />
+        <DesktopNavigation mainNavItms={[]} />
         {children}
       </div>
       <div className={classes.footerWrapper}>

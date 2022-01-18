@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Squash as Hamburger } from 'hamburger-react';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { useWindowSize } from '../../hooks';
@@ -124,13 +125,14 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
   const mediaRef = useRef();
   const windowSize = useWindowSize();
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
+  const upIpad = useMediaQuery('(min-width:765px)');
 
   useEffect(() => {
     const mediaEl = mediaRef.current;
     const mediaRect = mediaEl.getBoundingClientRect();
     mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
     mediaEl.style.marginLeft = -mediaRect.width + 'px';
-    console.log(mediaRect.width);
+    // console.log(mediaRect.width);
   }, [windowSize.width, windowSize.height]);
 
   useEffect(() => {
@@ -221,7 +223,11 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
                   initial='normal'
                   animate={isOpen ? 'invert' : 'normal'}
                 >
-                  <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+                  <Hamburger
+                    toggled={isOpen}
+                    toggle={setOpen}
+                    size={upIpad ? 24 : 20}
+                  />
                 </motion.div>
               </motion.div>
               <Menu

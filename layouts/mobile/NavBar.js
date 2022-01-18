@@ -100,7 +100,7 @@ export default function NavBar({ logo, frames, visibleFrame }) {
               close={() => {
                 setOpen(false);
               }}
-              items={['Data', 'Contact']}
+              items={[]}
             />
           </>
         )}

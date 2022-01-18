@@ -53,7 +53,7 @@ export default function DesktopMedia({ visibleFrame }) {
     const mediaRect = mediaEl.getBoundingClientRect();
     mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
     mediaEl.style.marginLeft = -mediaRect.width + 'px';
-    console.log(mediaRect.width);
+    // console.log(mediaRect.width);
   }, [windowSize.width, windowSize.height]);
 
   return (

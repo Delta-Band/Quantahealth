@@ -35,7 +35,7 @@ export async function getUserData(uid, orderBy) {
   const docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
-  console.log(data);
+  // console.log(data);
   return data;
 }
 

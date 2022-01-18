@@ -11,8 +11,8 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       justifyContent: 'space-around',
       height: '40vh',
-      width: 300,
-      paddingInline: theme.spacing(6)
+      // width: 300,
+      paddingInline: theme.spacing(2)
     }
   },
   vertical: {
@@ -37,7 +37,11 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
-    paddingInline: theme.spacing(1)
+    paddingInline: theme.spacing(1),
+    [theme.breakpoints.up('sm')]: {
+      paddingInline: theme.spacing(0),
+      paddingBlock: theme.spacing(1)
+    }
   }
 }));
 

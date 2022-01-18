@@ -11,7 +11,7 @@ export async function getStaticProps(context) {
   const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
   return {
     props: {
-      frames: homeFrames,
+      frames: homeFrames || [],
       brand,
       seo,
       footer
@@ -21,8 +21,6 @@ export async function getStaticProps(context) {
 }
 
 export default function Home({ brand, seo }) {
-  // console.log(frames);
-  // console.log(seo);
   return (
     <>
       <Helmet

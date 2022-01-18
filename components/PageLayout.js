@@ -78,5 +78,5 @@ export default function PageLayout({ children }) {
     }
   }
 
-  return <div>{getResponsiveLayout()}</div>;
+  return children.props.frames ? <div>{getResponsiveLayout()}</div> : null;
 }
