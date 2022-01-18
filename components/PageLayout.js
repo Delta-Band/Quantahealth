@@ -16,10 +16,6 @@ export default function PageLayout({ children }) {
   const { portrait } = useWindowOrientation();
   const [brand, setBrand] = useState({});
 
-  children.props.frames.forEach(frame => {
-    console.log(frame.media);
-  });
-
   useEffect(() => {
     reactor.init();
     (async function getBarndData() {
@@ -29,7 +25,6 @@ export default function PageLayout({ children }) {
   }, []);
 
   function getResponsiveLayout() {
-    if (!children.props.frames) return null;
     switch (true) {
       case desktop:
         return (
