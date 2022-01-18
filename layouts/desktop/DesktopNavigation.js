@@ -18,8 +18,6 @@ const useStyles = makeStyles(theme => ({
     left: 'calc(50vw + 32.5px)',
     borderBottomLeftRadius: theme.spacing(2),
     borderBottomRightRadius: theme.spacing(2),
-    border: '2px solid white',
-    borderTop: 'none',
     boxShadow: '0 2px 13px rgba(0, 0, 0, 0.4)',
     display: 'flex',
     flexDirection: 'column',

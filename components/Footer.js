@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import cx from 'classnames';
+import { Reader, Iframe } from '@deltaband/delta-next-mui';
 
 const useStyles = makeStyles(theme => ({
   footerWrapper: {
@@ -15,8 +16,6 @@ const useStyles = makeStyles(theme => ({
     borderTopRightRadius: 80,
     borderTopLeftRadius: 80,
     width: '100vw',
-    border: '2px solid white',
-    borderBottom: 'none',
     boxShadow: '0 -2px 13px rgba(0, 0, 0, 0.4)',
     zIndex: 1,
     maxHeight: 'calc(100% - 70px)',
@@ -40,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Footer({ className, data }) {
   const classes = useStyles();
+  const [openReader, setOpenReader] = useState(false);
 
   return (
     <footer
@@ -79,7 +79,11 @@ export default function Footer({ className, data }) {
             {data.address2}
           </Typography>
         )}
-        <a href={data.legal} target='_blank' rel='noreferrer'>
+        <a
+          onClick={() => {
+            setOpenReader(data.legal);
+          }}
+        >
           <Typography
             style={{
               color: data.textMainColor || '#000'
@@ -98,6 +102,15 @@ export default function Footer({ className, data }) {
       >
         ©{data.copyrights}
       </Typography>
+      <Reader
+        noBleed
+        open={openReader}
+        onClose={() => {
+          setOpenReader(null);
+        }}
+      >
+        <Iframe src={openReader} />
+      </Reader>
     </footer>
   );
 }

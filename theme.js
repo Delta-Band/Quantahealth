@@ -132,7 +132,8 @@ const theme = createTheme({
     },
     MuiButton: {
       root: {
-        transition: '0.3s ease-out'
+        transition: '0.3s ease-out',
+        textDecoration: 'none !important'
       },
       label: {
         fontSize: 14,

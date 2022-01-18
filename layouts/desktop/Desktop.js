@@ -64,11 +64,11 @@ const useStyles = makeStyles(theme => ({
     paddingRight: '5vw !important',
     // maxWidth: 1090,
     [theme.breakpoints.up('desktop')]: {
-      paddingLeft: 'calc(50vw - 220px) !important'
+      paddingLeft: 'calc(50vw - 167px) !important'
     }
   },
   richTxt: {
-    paddingLeft: 53,
+    // paddingLeft: 53,
     flexShrink: 0,
     fontSize: 16,
     maxWidth: '27vw',
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   },
   footer: {
     marginLeft: -174,
-    width: 'calc(100vw - 170px)'
+    width: 'calc(100vw - 170px) !important'
   }
 }));
 
@@ -124,8 +124,10 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
           }}
           className={classes.frameWrapper}
         >
-          <RichText html={frame.richTxt} className={classes.richTxt} />
-          <CustomLinkButton frame={frame} />
+          <div className={classes.richTxt}>
+            <RichText html={frame.richTxt} />
+            <CustomLinkButton frame={frame} />
+          </div>
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />

@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@deltaband/delta-next-mui": "^0.1.37",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
@@ -15,6 +16,7 @@
     "@react-hook/window-size": "^3.0.7",
     "@reduxjs/toolkit": "^1.7.1",
     "classnames": "^2.3.1",
+    "disable-scroll": "^0.6.0",
     "firebase": "^9.6.1",
     "framer-motion": "^5.5.5",
     "hamburger-react": "^2.4.1",
@@ -24,8 +26,10 @@
     "react-intersection-observer": "^8.33.1",
     "react-redux": "^7.2.6",
     "react-use-scroll-direction": "^0.1.0",
+    "sortablejs": "^1.14.0",
     "styled-components": "^5.3.3",
     "styled-icons": "^10.45.0",
+    "use-click-outside": "^2.0.0",
     "use-window-orientation": "^1.0.3"
   },
   "devDependencies": {
