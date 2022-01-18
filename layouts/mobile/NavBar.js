@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Squash as Hamburger } from 'hamburger-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as consts from '../consts';
@@ -17,20 +18,33 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    zIndex: 2
+    zIndex: 2,
+    [theme.breakpoints.up('ipad')]: {
+      height: 65,
+      paddingInlineEnd: theme.spacing(2),
+      justifyContent: 'flex-start'
+    }
+  },
+  frameIdicatorOuter: {
+    [theme.breakpoints.up('ipad')]: {
+      // alignSelf: 'flex-end'
+    }
   },
   logoImg: {
     height: '100%',
     zIndex: 1
   },
   hamburger: {
-    zIndex: 1
+    zIndex: 1,
+    justifySelf: 'flex-end'
   }
 }));
 
 export default function NavBar({ logo, frames, visibleFrame }) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
+  const theme = useTheme();
+  const upIpad = useMediaQuery('(min-width:765px)');
 
   return (
     <div className={classes.navBarWrapper}>
@@ -58,6 +72,7 @@ export default function NavBar({ logo, frames, visibleFrame }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.75 }}
+              className={classes.frameIdicatorOuter}
             >
               <FrameIndicator frames={frames} visibleFrame={visibleFrame} />
             </motion.div>
@@ -73,7 +88,11 @@ export default function NavBar({ logo, frames, visibleFrame }) {
                 initial='normal'
                 animate={isOpen ? 'invert' : 'normal'}
               >
-                <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
+                <Hamburger
+                  toggled={isOpen}
+                  toggle={setOpen}
+                  size={upIpad ? 24 : 20}
+                />
               </motion.div>
             </motion.div>
             <Menu

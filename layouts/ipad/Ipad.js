@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Squash as Hamburger } from 'hamburger-react';
 import { useScrollDirection } from 'react-use-scroll-direction';
+import NavBar from '../mobile/NavBar';
 import {
   FrameIndicator,
   Menu,
@@ -124,60 +125,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
         </Frame>
       ))}
       <Footer className={classes.footer} data={footer} />
-      <div className={classes.topBar}>
-        <AnimatePresence>
-          {logo && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.75 }}
-                className={classes.logoImg}
-              >
-                <motion.img
-                  className={classes.logoImg}
-                  src={logo}
-                  alt='Quathealth Logo'
-                  variants={consts.INVERT_COLOR}
-                  initial='normal'
-                  animate={isOpen ? 'invert' : 'normal'}
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.75 }}
-              >
-                <FrameIndicator frames={frames} visibleFrame={visibleFrame} />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.75 }}
-                className={classes.hamburger}
-              >
-                <motion.div
-                  variants={consts.INVERT_COLOR}
-                  initial='normal'
-                  animate={isOpen ? 'invert' : 'normal'}
-                >
-                  <Hamburger toggled={isOpen} toggle={setOpen} size={20} />
-                </motion.div>
-              </motion.div>
-              <Menu
-                open={isOpen}
-                close={() => {
-                  setOpen(false);
-                }}
-                items={['Data', 'Contact']}
-              />
-            </>
-          )}
-        </AnimatePresence>
-      </div>
+      <NavBar logo={logo} frames={frames} visibleFrame={visibleFrame} />
       <div>{children}</div>
     </motion.div>
   );

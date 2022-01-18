@@ -29,6 +29,7 @@ export default function PageLayout({ children }) {
   }, []);
 
   function getResponsiveLayout() {
+    if (!children.props.frames) return null;
     switch (true) {
       case desktop:
         return (
