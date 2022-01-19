@@ -62,7 +62,8 @@ const useStyles = makeStyles(theme => ({
   },
   logoImg: {
     height: '40px',
-    pointerEvents: 'all'
+    pointerEvents: 'all',
+    cursor: 'pointer'
   },
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',

@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     paddingInline: theme.spacing(3)
   },
   list: {
+    pointerEvents: 'all',
     margin: 0,
     padding: 0,
     listStyle: 'none',
