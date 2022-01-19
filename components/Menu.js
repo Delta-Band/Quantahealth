@@ -120,17 +120,19 @@ export default function Menu({
         <motion.li variants={listItem}>
           <Link href='/'>
             <a>
-              <Button
-                color={active === 'home' ? 'primary' : 'secondary'}
-                onClick={() => {
-                  document
-                    .getElementsByClassName('frameWrapper')[0]
-                    .scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                <HomeIcon size={20} />
-                <span className={classes.linkTxt}>Home</span>
-              </Button>
+              <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
+                <Button
+                  color='secondary'
+                  onClick={() => {
+                    document
+                      .getElementsByClassName('frameWrapper')[0]
+                      .scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  <HomeIcon size={20} />
+                  <span className={classes.linkTxt}>Home</span>
+                </Button>
+              </motion.div>
             </a>
           </Link>
         </motion.li>
@@ -138,31 +140,25 @@ export default function Menu({
           <motion.li key={itm} variants={listItem} onClick={close}>
             <Link href={`/${itm.toLowerCase()}`}>
               <a>
-                <Button
-                  color={
-                    router.pathname === `/${itm.toLowerCase()}`
-                      ? 'primary'
-                      : 'secondary'
-                  }
+                <motion.div
+                  animate={{
+                    opacity:
+                      router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
+                  }}
                 >
-                  {itm}
-                </Button>
+                  <Button color='secondary'>{itm}</Button>
+                </motion.div>
               </a>
             </Link>
           </motion.li>
         ))}
         <motion.li variants={listItem} onClick={close}>
-          <Button
-            color={active === `contact` ? 'primary' : 'secondary'}
-            onClick={() => {
-              document
-                .getElementById('footer')
-                .scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <ContactIcon size={18} />
-            <span className={classes.linkTxt}>Contact</span>
-          </Button>
+          <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
+            <Button color='secondary'>
+              <ContactIcon size={18} />
+              <span className={classes.linkTxt}>Contact</span>
+            </Button>
+          </motion.div>
         </motion.li>
       </motion.ul>
     </motion.div>
