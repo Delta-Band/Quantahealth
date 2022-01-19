@@ -76,11 +76,12 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(3),
     // background: 'green',
     flexShrink: 0,
-    fontSize: 16,
-    lineHeight: '25px',
+    fontSize: 14,
+    lineHeight: '22px',
     '& .ql-size-huge': {
-      fontSize: 24,
-      lineHeight: '28px',
+      fontSize: 18,
+      lineHeight: '25px',
+      display: 'inline-block',
       fontWeight: 'bold'
     },
     '& a': {

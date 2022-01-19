@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     left: '50%',
     transform: 'translateX(-50%)',
-    // paddingInline: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
       position: 'relative',
       left: '50vw',
