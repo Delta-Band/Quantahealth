@@ -81,12 +81,11 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
             <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
               <Button
                 onClick={() => {
-                  console.log(
-                    document.getElementsByClassName('frameWrapper')[0]
-                  );
-                  document
-                    .getElementsByClassName('frameWrapper')[0]
-                    .scrollIntoView({ behavior: 'smooth' });
+                  setTimeout(() => {
+                    document
+                      .getElementsByClassName('frameWrapper')[0]
+                      .scrollIntoView({ behavior: 'smooth' });
+                  });
                 }}
               >
                 <HomeIcon size={20} />

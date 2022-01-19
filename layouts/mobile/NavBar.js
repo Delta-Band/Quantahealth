@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Squash as Hamburger } from 'hamburger-react';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as consts from '../consts';
 import { FrameIndicator, Menu } from '../../components';
@@ -51,6 +52,7 @@ export default function NavBar({
   const [isOpen, setOpen] = useState(false);
   const theme = useTheme();
   const upIpad = useMediaQuery('(min-width:765px)');
+  const router = useRouter();
 
   return (
     <div className={classes.navBarWrapper}>
@@ -71,6 +73,14 @@ export default function NavBar({
                 variants={consts.INVERT_COLOR}
                 initial='normal'
                 animate={isOpen ? 'invert' : 'normal'}
+                onClick={() => {
+                  router.push('/');
+                  setTimeout(() => {
+                    document
+                      .getElementsByClassName('frameWrapper')[0]
+                      .scrollIntoView({ behavior: 'smooth' });
+                  });
+                }}
               />
             </motion.div>
             <motion.div
