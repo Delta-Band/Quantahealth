@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { Button } from '@mui/material';
+import { Home as HomeIcon } from '@styled-icons/foundation/Home';
+import { InfoCircleFill as ContactIcon } from '@styled-icons/bootstrap/InfoCircleFill';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -21,7 +23,19 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: 0,
     listStyle: 'none',
-    width: '100%'
+    position: 'relative',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    // paddingInline: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      position: 'relative',
+      left: '50vw',
+      transform: 'translateX(-50%)'
+    }
+  },
+  linkTxt: {
+    transform: 'translateY(1px)',
+    marginLeft: theme.spacing(1)
   }
 }));
 
@@ -69,9 +83,30 @@ const listItem = {
   show: { opacity: 1 }
 };
 
-export default function Menu({ open, close, items, horizontal = false }) {
+export default function Menu({
+  open,
+  close,
+  items,
+  horizontal = false,
+  footerIsVisible = false
+}) {
   const classes = useStyles();
+  const [active, setActive] = useState('home');
   const router = useRouter();
+
+  useEffect(() => {
+    if (footerIsVisible) {
+      setActive('contact');
+    } else {
+      switch (router.pathname) {
+        case '/':
+          setActive('home');
+          break;
+        default:
+          setActive(router.pathname);
+      }
+    }
+  }, [footerIsVisible, router.pathname]);
 
   return (
     <motion.div
@@ -87,10 +122,15 @@ export default function Menu({ open, close, items, horizontal = false }) {
           <Link href='/'>
             <a>
               <Button
-                fullWidth
-                color={router.pathname === '/' ? 'primary' : 'secondary'}
+                color={active === 'home' ? 'primary' : 'secondary'}
+                onClick={() => {
+                  document
+                    .getElementsByClassName('frameWrapper')[0]
+                    .scrollIntoView({ behavior: 'smooth' });
+                }}
               >
-                Home
+                <HomeIcon size={20} />
+                <span className={classes.linkTxt}>Home</span>
               </Button>
             </a>
           </Link>
@@ -105,7 +145,6 @@ export default function Menu({ open, close, items, horizontal = false }) {
                       ? 'primary'
                       : 'secondary'
                   }
-                  fullWidth
                 >
                   {itm}
                 </Button>
@@ -113,6 +152,19 @@ export default function Menu({ open, close, items, horizontal = false }) {
             </Link>
           </motion.li>
         ))}
+        <motion.li variants={listItem} onClick={close}>
+          <Button
+            color={active === `contact` ? 'primary' : 'secondary'}
+            onClick={() => {
+              document
+                .getElementById('footer')
+                .scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <ContactIcon size={18} />
+            <span className={classes.linkTxt}>Contact</span>
+          </Button>
+        </motion.li>
       </motion.ul>
     </motion.div>
   );

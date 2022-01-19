@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Squash as Hamburger } from 'hamburger-react';
 import { useScrollDirection } from 'react-use-scroll-direction';
+import cx from 'classnames';
 import { useWindowSize } from '../../hooks';
 import {
   FrameIndicator,
@@ -170,7 +171,7 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
             );
           }}
           index={i}
-          className={classes.frameWrapper}
+          className={cx(classes.frameWrapper, 'frameWrapper')}
         >
           <RichText html={frame.richTxt} className={classes.richTxt} />
           <div className={classes.customLinkBtn}>
@@ -235,7 +236,7 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
                 close={() => {
                   setOpen(false);
                 }}
-                items={['Data', 'Contact']}
+                items={[]}
                 horizontal
               />
             </>

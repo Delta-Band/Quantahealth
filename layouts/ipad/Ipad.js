@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Squash as Hamburger } from 'hamburger-react';
+import { motion } from 'framer-motion';
+import cx from 'classnames';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import NavBar from '../mobile/NavBar';
 import {
-  FrameIndicator,
-  Menu,
   Frame,
   RichText,
   Footer,
@@ -86,6 +84,9 @@ export default function IpadLayout({ logo, frames, children, footer }) {
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
+  const [footerIsVisible, setFooterIsVisible] = useState(
+    frames[visibleFrameIndex]
+  );
 
   useEffect(() => {
     setVisibleFrame(frames[visibleFrameIndex]);
@@ -113,7 +114,7 @@ export default function IpadLayout({ logo, frames, children, footer }) {
             );
           }}
           index={i}
-          className={classes.frameWrapper}
+          className={cx(classes.frameWrapper, 'frameWrapper')}
         >
           <Media
             frame={frame}
@@ -124,7 +125,13 @@ export default function IpadLayout({ logo, frames, children, footer }) {
           <CustomLinkButton frame={frame} />
         </Frame>
       ))}
-      <Footer className={classes.footer} data={footer} />
+      <Footer
+        className={classes.footer}
+        data={footer}
+        onShow={visible => {
+          setFooterIsVisible(visible);
+        }}
+      />
       <NavBar logo={logo} frames={frames} visibleFrame={visibleFrame} />
       <div>{children}</div>
     </motion.div>

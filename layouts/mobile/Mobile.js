@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { useScrollDirection } from 'react-use-scroll-direction';
+import cx from 'classnames';
 import NavBar from './NavBar';
 import {
   Frame,
@@ -52,6 +53,9 @@ export default function MobileLayout({ logo, frames, children, footer }) {
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
+  const [footerIsVisible, setFooterIsVisible] = useState(
+    frames[visibleFrameIndex]
+  );
 
   useEffect(() => {
     setVisibleFrame(frames[visibleFrameIndex]);
@@ -78,7 +82,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             );
           }}
           index={i}
-          className={classes.frameWrapper}
+          className={cx(classes.frameWrapper, 'frameWrapper')}
         >
           <Media
             frame={frame}
@@ -89,8 +93,19 @@ export default function MobileLayout({ logo, frames, children, footer }) {
           <CustomLinkButton frame={frame} />
         </Frame>
       ))}
-      <NavBar logo={logo} frames={frames} visibleFrame={visibleFrame} />
-      <Footer className={classes.footer} data={footer} />
+      <NavBar
+        logo={logo}
+        frames={frames}
+        visibleFrame={visibleFrame}
+        footerIsVisible={footerIsVisible}
+      />
+      <Footer
+        className={classes.footer}
+        data={footer}
+        onShow={visible => {
+          setFooterIsVisible(visible);
+        }}
+      />
       {children}
     </motion.div>
   ) : null;

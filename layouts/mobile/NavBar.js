@@ -40,7 +40,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar({ logo, frames, visibleFrame }) {
+export default function NavBar({
+  logo,
+  frames,
+  visibleFrame,
+  footerIsVisible = false
+}) {
   const classes = useStyles();
   const [isOpen, setOpen] = useState(false);
   const theme = useTheme();
@@ -96,6 +101,7 @@ export default function NavBar({ logo, frames, visibleFrame }) {
               </motion.div>
             </motion.div>
             <Menu
+              footerIsVisible={footerIsVisible}
               open={isOpen}
               close={() => {
                 setOpen(false);
