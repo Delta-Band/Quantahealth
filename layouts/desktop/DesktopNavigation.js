@@ -78,46 +78,47 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
       <div className={classes.mainNavItms}>
         <Link href='/'>
           <a>
-            <Button
-              color={active === 'home' ? 'primary' : 'secondary'}
-              onClick={() => {
-                document
-                  .getElementsByClassName('frameWrapper')[0]
-                  .scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              <HomeIcon size={20} />
-              <span className={classes.linkTxt}>Home</span>
-            </Button>
+            <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
+              <Button
+                onClick={() => {
+                  document
+                    .getElementsByClassName('frameWrapper')[0]
+                    .scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <HomeIcon size={20} />
+                <span className={classes.linkTxt}>Home</span>
+              </Button>
+            </motion.div>
           </a>
         </Link>
         {mainNavItms.map(navItm => (
           <Link href={`/${navItm.toLowerCase()}`} key={navItm}>
             <a>
-              <Button
-                color={
-                  router.pathname === `/${navItm.toLowerCase()}`
-                    ? 'primary'
-                    : 'secondary'
-                }
+              <motion.div
+                animate={{
+                  opacity:
+                    router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
+                }}
               >
-                {navItm}
-              </Button>
+                <Button>{navItm}</Button>
+              </motion.div>
             </a>
           </Link>
         ))}
-        <Button
-          color={active === `contact` ? 'primary' : 'secondary'}
-          onClick={() => {
-            document
-              .getElementById('footer')
-              .scrollIntoView({ behavior: 'smooth' });
-          }}
-          // color={router.pathname === '/' ? 'primary' : 'secondary'}
-        >
-          <ContactIcon size={18} />
-          <span className={classes.linkTxt}>Contact</span>
-        </Button>
+        <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
+          <Button
+            onClick={() => {
+              document
+                .getElementById('footer')
+                .scrollIntoView({ behavior: 'smooth' });
+            }}
+            // color={router.pathname === '/' ? 'primary' : 'secondary'}
+          >
+            <ContactIcon size={18} />
+            <span className={classes.linkTxt}>Contact</span>
+          </Button>
+        </motion.div>
       </div>
     </motion.div>
   );
