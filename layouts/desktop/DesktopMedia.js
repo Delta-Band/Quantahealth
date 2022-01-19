@@ -7,14 +7,13 @@ import { Media } from '../../components';
 const useStyles = makeStyles(theme => ({
   desktopmediaWrapper: {
     width: '80vh',
-    height: '80vh',
     flexShrink: 0,
     position: 'fixed',
     left: 'calc(50vw + 32.5px)',
     top: '50%',
     // background: 'red',
     // transform: 'translate(-50%, -50%)',
-    maxHeight: '30vw',
+    height: '83px',
     maxWidth: '30vw',
     pointerEvents: 'none',
     '& img': {

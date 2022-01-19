@@ -74,7 +74,6 @@ const useStyles = makeStyles(theme => ({
   richTxt: {
     paddingRight: '10vw',
     paddingLeft: theme.spacing(3),
-    // background: 'green',
     flexShrink: 0,
     fontSize: 14,
     lineHeight: '22px',

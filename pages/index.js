@@ -9,13 +9,14 @@ export async function getStaticProps(context) {
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
   const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
   const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
+  const props = {
+    frames: homeFrames || [],
+    brand,
+    seo,
+    footer
+  };
   return {
-    props: {
-      frames: homeFrames || [],
-      brand,
-      seo,
-      footer
-    },
+    props,
     revalidate: 10
   };
 }

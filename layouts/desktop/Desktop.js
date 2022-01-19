@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logoImg: {
-    width: '100%'
+    height: '40px'
   },
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',
