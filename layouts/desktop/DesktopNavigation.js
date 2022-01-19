@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
+import { Home as HomeIcon } from '@styled-icons/foundation/Home';
+import { InfoCircleFill as ContactIcon } from '@styled-icons/bootstrap/InfoCircleFill';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
 import { useRouter } from 'next/router';
@@ -22,6 +24,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  linkTxt: {
+    transform: 'translateY(1px)',
+    marginLeft: theme.spacing(1)
   },
   mainNavItms: {
     display: 'flex',
@@ -81,7 +87,8 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
                   .scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Home
+              <HomeIcon size={20} />
+              <span className={classes.linkTxt}>Home</span>
             </Button>
           </a>
         </Link>
@@ -109,7 +116,8 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
           }}
           // color={router.pathname === '/' ? 'primary' : 'secondary'}
         >
-          Contact
+          <ContactIcon size={18} />
+          <span className={classes.linkTxt}>Contact</span>
         </Button>
       </div>
     </motion.div>
