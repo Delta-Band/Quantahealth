@@ -124,9 +124,11 @@ export default function Menu({
                 <Button
                   color='secondary'
                   onClick={() => {
-                    document
-                      .getElementsByClassName('frameWrapper')[0]
-                      .scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                      document
+                        .getElementsByClassName('frameWrapper')[0]
+                        .scrollIntoView({ behavior: 'smooth' });
+                    });
                   }}
                 >
                   <HomeIcon size={20} />
@@ -154,7 +156,16 @@ export default function Menu({
         ))}
         <motion.li variants={listItem} onClick={close}>
           <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
-            <Button color='secondary'>
+            <Button
+              color='secondary'
+              onClick={() => {
+                setTimeout(() => {
+                  document
+                    .getElementById('footer')
+                    .scrollIntoView({ behavior: 'smooth' });
+                });
+              }}
+            >
               <ContactIcon size={18} />
               <span className={classes.linkTxt}>Contact</span>
             </Button>

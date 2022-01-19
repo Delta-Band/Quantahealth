@@ -112,9 +112,11 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
         <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
           <Button
             onClick={() => {
-              document
-                .getElementById('footer')
-                .scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => {
+                document
+                  .getElementById('footer')
+                  .scrollIntoView({ behavior: 'smooth' });
+              });
             }}
             // color={router.pathname === '/' ? 'primary' : 'secondary'}
           >
