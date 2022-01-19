@@ -65,6 +65,14 @@ export default function NavBar({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.75 }}
               className={classes.logoImg}
+              onClick={() => {
+                router.push('/');
+                setTimeout(() => {
+                  document
+                    .getElementsByClassName('frameWrapper')[0]
+                    .scrollIntoView({ behavior: 'smooth' });
+                });
+              }}
             >
               <motion.img
                 className={classes.logoImg}
@@ -73,14 +81,6 @@ export default function NavBar({
                 variants={consts.INVERT_COLOR}
                 initial='normal'
                 animate={isOpen ? 'invert' : 'normal'}
-                onClick={() => {
-                  router.push('/');
-                  setTimeout(() => {
-                    document
-                      .getElementsByClassName('frameWrapper')[0]
-                      .scrollIntoView({ behavior: 'smooth' });
-                  });
-                }}
               />
             </motion.div>
             <motion.div

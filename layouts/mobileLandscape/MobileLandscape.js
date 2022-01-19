@@ -6,6 +6,7 @@ import { Squash as Hamburger } from 'hamburger-react';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import cx from 'classnames';
 import { useWindowSize } from '../../hooks';
+import { useRouter } from 'next/router';
 import {
   FrameIndicator,
   Menu,
@@ -43,7 +44,9 @@ const useStyles = makeStyles(theme => ({
   },
   logoImg: {
     width: '100%',
-    zIndex: 1
+    zIndex: 1,
+    position: 'relative',
+    pointerEvents: 'all'
   },
   hamburger: {
     zIndex: 1,
@@ -138,6 +141,7 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
   const windowSize = useWindowSize();
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
   const upIpad = useMediaQuery('(min-width:765px)');
+  const router = useRouter();
 
   useEffect(() => {
     const mediaEl = mediaRef.current;
@@ -201,6 +205,14 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.75 }}
                 className={classes.logoImg}
+                onClick={() => {
+                  router.push('/');
+                  setTimeout(() => {
+                    document
+                      .getElementsByClassName('frameWrapper')[0]
+                      .scrollIntoView({ behavior: 'smooth' });
+                  });
+                }}
               >
                 <motion.img
                   className={classes.logoImg}

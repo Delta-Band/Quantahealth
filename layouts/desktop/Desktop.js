@@ -4,6 +4,7 @@ import { useScrollDirection } from 'react-use-scroll-direction';
 import { motion, AnimatePresence } from 'framer-motion';
 import cx from 'classnames';
 import DesktopNavigation from './DesktopNavigation';
+import { useRouter } from 'next/router';
 import {
   FrameIndicator,
   Frame,
@@ -60,7 +61,8 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logoImg: {
-    height: '40px'
+    height: '40px',
+    pointerEvents: 'all'
   },
   frameWrapper: {
     paddingLeft: 'calc(50vw - 150px) !important',
@@ -114,6 +116,7 @@ const useStyles = makeStyles(theme => ({
 export default function DesktopLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
+  const router = useRouter();
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const [footerIsVisible, setFooterIsVisible] = useState(
     frames[visibleFrameIndex]
@@ -166,6 +169,14 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.75 }}
                   className={classes.logoImg}
+                  onClick={() => {
+                    router.push('/');
+                    setTimeout(() => {
+                      document
+                        .getElementsByClassName('frameWrapper')[0]
+                        .scrollIntoView({ behavior: 'smooth' });
+                    });
+                  }}
                 >
                   <img
                     className={classes.logoImg}
