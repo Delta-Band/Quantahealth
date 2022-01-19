@@ -6,28 +6,30 @@ const useStyles = makeStyles(theme => ({
   customlinkbuttonWrapper: {
     borderRadius: 0,
     borderInline: '1px solid',
-    color: theme.palette.link.primary
+    color: theme.palette.link.primary,
+    paddingInline: theme.spacing(3),
+    textTransform: 'capitalize'
   },
   bracketEdge: {
     position: 'absolute',
     width: theme.spacing(1),
     '&:nth-child(1)': {
-      left: -8,
+      left: -24,
       top: -7,
       borderTop: '1px solid'
     },
     '&:nth-child(2)': {
-      right: -8,
+      right: -24,
       top: -7,
       borderTop: '1px solid'
     },
     '&:nth-child(3)': {
-      right: -8,
+      right: -24,
       bottom: -5,
       borderBottom: '1px solid'
     },
     '&:nth-child(4)': {
-      left: -8,
+      left: -24,
       bottom: -5,
       borderBottom: '1px solid'
     }
@@ -42,7 +44,6 @@ export default function CustomLinkButton({ frame }) {
         className={classes.customlinkbuttonWrapper}
         href={frame.customLink}
         color='secondary'
-        fullWidth
         target={
           frame.openWhere.toLowerCase() === 'new tab' ? '_blank' : undefined
         }

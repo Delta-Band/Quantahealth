@@ -86,6 +86,17 @@ const useStyles = makeStyles(theme => ({
     '& a': {
       color: theme.palette.link.primary,
       textDecoration: 'underline'
+    },
+    '& p': {
+      marginBlock: theme.spacing(3)
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 16,
+      lineHeight: '28px',
+      '& .ql-size-huge': {
+        fontSize: 22,
+        lineHeight: '32px'
+      }
     }
   },
   footer: {
