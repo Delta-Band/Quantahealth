@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useScrollDirection } from 'react-use-scroll-direction';
 import { motion, AnimatePresence } from 'framer-motion';
+import cx from 'classnames';
 import DesktopNavigation from './DesktopNavigation';
 import {
   FrameIndicator,
@@ -111,6 +112,9 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
+  const [footerIsVisible, setFooterIsVisible] = useState(
+    frames[visibleFrameIndex]
+  );
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
 
   useEffect(() => {
@@ -141,7 +145,7 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
                   : Math.max(indx, visibleFrameIndex)
               );
             }}
-            className={classes.frameWrapper}
+            className={cx(classes.frameWrapper, 'frameWrapper')}
           >
             <div className={classes.richTxt}>
               <RichText html={frame.richTxt} />
@@ -183,11 +187,17 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
           </AnimatePresence>
           <div />
         </div>
-        <DesktopNavigation mainNavItms={[]} />
+        <DesktopNavigation mainNavItms={[]} footerIsVisible={footerIsVisible} />
         {children}
       </div>
       <div className={classes.footerWrapper}>
-        <Footer data={footer} className={classes.footerInner} />
+        <Footer
+          data={footer}
+          className={classes.footerInner}
+          onShow={visible => {
+            setFooterIsVisible(visible);
+          }}
+        />
       </div>
     </motion.div>
   );

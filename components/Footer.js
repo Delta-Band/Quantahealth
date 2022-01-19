@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { InView } from 'react-intersection-observer';
 import cx from 'classnames';
 import { Reader, Iframe } from '@deltaband/delta-next-mui';
 import Credits from './Credits';
@@ -59,97 +60,107 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Footer({ className, data }) {
+export default function Footer({ className, data, onShow = () => {} }) {
   const classes = useStyles();
   const [openReader, setOpenReader] = useState(false);
 
   return (
-    <footer
-      className={cx(classes.footerWrapper, className)}
-      style={{
-        backgroundColor: data.bgColor || '#FFF'
+    <InView rootMargin='-100px 0px -100px 0px'>
+      {({ inView, ref, entry }) => {
+        // console.log(inView);
+        onShow(inView);
+        return (
+          <footer
+            ref={ref}
+            id='footer'
+            className={cx(classes.footerWrapper, className)}
+            style={{
+              backgroundColor: data.bgColor || '#FFF'
+            }}
+          >
+            <div className={classes.info}>
+              <Typography
+                variant='h1'
+                style={{
+                  color: data.textMainColor || '#000'
+                }}
+                className={classes.title}
+              >
+                {data.title}
+              </Typography>
+              <a
+                href={`mailto:${data.email}?Subject=${data.emailSubject}`}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <Typography
+                  style={{
+                    color: data.textMainColor || '#000'
+                  }}
+                  className={classes.linkTxt}
+                >
+                  {data.email}
+                </Typography>
+              </a>
+              <Typography
+                style={{
+                  color: data.textMainColor || '#000'
+                }}
+              >
+                {data.address1}
+              </Typography>
+              {data.address2 && (
+                <Typography
+                  style={{
+                    color: data.textMainColor || '#000'
+                  }}
+                >
+                  {data.address2}
+                </Typography>
+              )}
+              <Social data={data} />
+              <a
+                onClick={() => {
+                  setOpenReader(data.legal);
+                }}
+              >
+                <Typography
+                  style={{
+                    color: data.textMainColor || '#000'
+                  }}
+                  className={classes.linkTxt}
+                >
+                  Legal Information
+                </Typography>
+              </a>
+              <Typography
+                style={{
+                  color: data.textMainColor || '#000'
+                }}
+                className={classes.copyrights}
+              >
+                ©{data.copyrights}
+              </Typography>
+              <div
+                className={classes.divider}
+                style={{
+                  backgroundColor: data.textMainColor || '#000'
+                }}
+              />
+            </div>
+            <Credits data={data} />
+            <Reader
+              noBleed
+              open={openReader}
+              onClose={() => {
+                setOpenReader(null);
+              }}
+            >
+              <Iframe src={openReader} />
+            </Reader>
+          </footer>
+        );
       }}
-    >
-      <div className={classes.info}>
-        <Typography
-          variant='h1'
-          style={{
-            color: data.textMainColor || '#000'
-          }}
-          className={classes.title}
-        >
-          {data.title}
-        </Typography>
-        <a
-          href={`mailto:${data.email}?Subject=${data.emailSubject}`}
-          target='_blank'
-          rel='noreferrer'
-        >
-          <Typography
-            style={{
-              color: data.textMainColor || '#000'
-            }}
-            className={classes.linkTxt}
-          >
-            {data.email}
-          </Typography>
-        </a>
-        <Typography
-          style={{
-            color: data.textMainColor || '#000'
-          }}
-        >
-          {data.address1}
-        </Typography>
-        {data.address2 && (
-          <Typography
-            style={{
-              color: data.textMainColor || '#000'
-            }}
-          >
-            {data.address2}
-          </Typography>
-        )}
-        <Social data={data} />
-        <a
-          onClick={() => {
-            setOpenReader(data.legal);
-          }}
-        >
-          <Typography
-            style={{
-              color: data.textMainColor || '#000'
-            }}
-            className={classes.linkTxt}
-          >
-            Legal Information
-          </Typography>
-        </a>
-        <Typography
-          style={{
-            color: data.textMainColor || '#000'
-          }}
-          className={classes.copyrights}
-        >
-          ©{data.copyrights}
-        </Typography>
-        <div
-          className={classes.divider}
-          style={{
-            backgroundColor: data.textMainColor || '#000'
-          }}
-        />
-      </div>
-      <Credits data={data} />
-      <Reader
-        noBleed
-        open={openReader}
-        onClose={() => {
-          setOpenReader(null);
-        }}
-      >
-        <Iframe src={openReader} />
-      </Reader>
-    </footer>
+    </InView>
   );
 }

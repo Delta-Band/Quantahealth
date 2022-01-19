@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link';
@@ -25,14 +25,36 @@ const useStyles = makeStyles(theme => ({
   },
   mainNavItms: {
     display: 'flex',
-    justifyContent: 'space-around',
-    width: '100%'
+    // justifyContent: 'space-around',
+    width: '100%',
+    '& > *': {
+      marginRight: theme.spacing(3)
+    },
+    '& > *:last-child': {
+      marginRight: theme.spacing(0)
+    }
   }
 }));
 
-function DesktopNavigation({ mainNavItms = [] }, ref) {
+function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
   const classes = useStyles();
   const router = useRouter();
+  const [active, setActive] = useState('home');
+  // console.log(footerIsVisible);
+
+  useEffect(() => {
+    if (footerIsVisible) {
+      setActive('contact');
+    } else {
+      switch (router.pathname) {
+        case '/':
+          setActive('home');
+          break;
+        default:
+          setActive(router.pathname);
+      }
+    }
+  }, [footerIsVisible, router.pathname]);
 
   return (
     <motion.div
@@ -52,8 +74,12 @@ function DesktopNavigation({ mainNavItms = [] }, ref) {
         <Link href='/'>
           <a>
             <Button
-              color={router.pathname === '/' ? 'primary' : 'secondary'}
-              fullWidth
+              color={active === 'home' ? 'primary' : 'secondary'}
+              onClick={() => {
+                document
+                  .getElementsByClassName('frameWrapper')[0]
+                  .scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Home
             </Button>
@@ -74,6 +100,17 @@ function DesktopNavigation({ mainNavItms = [] }, ref) {
             </a>
           </Link>
         ))}
+        <Button
+          color={active === `contact` ? 'primary' : 'secondary'}
+          onClick={() => {
+            document
+              .getElementById('footer')
+              .scrollIntoView({ behavior: 'smooth' });
+          }}
+          // color={router.pathname === '/' ? 'primary' : 'secondary'}
+        >
+          Contact
+        </Button>
       </div>
     </motion.div>
   );
