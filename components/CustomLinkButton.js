@@ -8,29 +8,32 @@ const useStyles = makeStyles(theme => ({
     borderInline: '1px solid',
     color: theme.palette.link.primary,
     paddingInline: theme.spacing(3),
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
+    '& .MuiButton-label': {
+      transform: 'translateY(0)'
+    }
   },
   bracketEdge: {
     position: 'absolute',
     width: theme.spacing(1),
     '&:nth-child(1)': {
       left: -24,
-      top: -7,
+      top: -6,
       borderTop: '1px solid'
     },
     '&:nth-child(2)': {
       right: -24,
-      top: -7,
+      top: -6,
       borderTop: '1px solid'
     },
     '&:nth-child(3)': {
       right: -24,
-      bottom: -5,
+      bottom: -6,
       borderBottom: '1px solid'
     },
     '&:nth-child(4)': {
       left: -24,
-      bottom: -5,
+      bottom: -6,
       borderBottom: '1px solid'
     }
   }

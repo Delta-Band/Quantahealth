@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
   },
   frameIdicatorOuter: {
     [theme.breakpoints.up('ipad')]: {
-      // alignSelf: 'flex-end'
+      marginLeft: 'auto',
+      marginRight: theme.spacing(4)
     }
   },
   logoImg: {

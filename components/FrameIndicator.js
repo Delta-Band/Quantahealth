@@ -37,8 +37,9 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     display: 'flex',
     justifyContent: 'center',
+    paddingBlock: theme.spacing(1),
     paddingInline: theme.spacing(1),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('laptop')]: {
       paddingInline: theme.spacing(0),
       paddingBlock: theme.spacing(1)
     }

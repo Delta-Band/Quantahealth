@@ -145,10 +145,10 @@ const theme = createTheme({
       contained: {
         borderRadius: 25,
         paddingLeft: 28,
-        paddingRight: 28,
-        '& > .MuiButton-label': {
-          transform: 'translateY(1px)'
-        }
+        paddingRight: 28
+        // '& > .MuiButton-label': {
+        //   transform: 'translateY(1px)'
+        // }
       },
       containedSecondary: {
         '&:hover': {
@@ -170,10 +170,10 @@ const theme = createTheme({
         color: '#FFDACE'
       },
       text: {
-        marginTop: -1,
-        '& > .MuiButton-label': {
-          transform: 'translateY(1px)'
-        }
+        marginTop: -1
+        // '& > .MuiButton-label': {
+        //   transform: 'translateY(1px)'
+        // }
       },
       textSizeSmall: {
         paddingLeft: 8,

@@ -45,6 +45,10 @@ const useStyles = makeStyles(theme => ({
     '& a': {
       color: theme.palette.link.primary,
       textDecoration: 'underline'
+    },
+    '& p': {
+      marginBlock: theme.spacing(4),
+      lineHeight: '27px'
     }
   },
   contentWrapper: {
@@ -63,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
   frameWrapper: {
     // minHeight: 'unset !important',
-    paddingInline: theme.spacing(7),
+    paddingInline: theme.spacing(5),
     '&:first-child': {
       paddingTop: theme.spacing(10)
     }
@@ -121,8 +125,10 @@ export default function IpadLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
             className={classes.media}
           />
-          <RichText html={frame.richTxt} className={classes.richTxt} />
-          <CustomLinkButton frame={frame} />
+          <div>
+            <RichText html={frame.richTxt} className={classes.richTxt} />
+            <CustomLinkButton frame={frame} />
+          </div>
         </Frame>
       ))}
       <Footer
