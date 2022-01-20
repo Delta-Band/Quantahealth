@@ -27,12 +27,10 @@ const useStyles = makeStyles(theme => ({
   linkTxt: {
     textDecoration: 'underline'
   },
-  copyrights: {
-    marginBottom: theme.spacing(3)
-  },
   info: {
     '& > *': {
-      marginBottom: theme.spacing(1),
+      // marginBottom: theme.spacing(1),
+      lineHeight: '33px',
       display: 'block'
     },
     '& p': {
@@ -43,6 +41,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(5)
   },
   copyrights: {
+    marginBottom: theme.spacing(3),
     marginBottom: `${theme.spacing(5)}px !important`
   },
   divider: {
@@ -126,7 +125,8 @@ export default function Footer({ className, data, onShow = () => {} }) {
               >
                 <Typography
                   style={{
-                    color: data.textMainColor || '#000'
+                    color: data.textMainColor || '#000',
+                    lineHeight: 'inherit'
                   }}
                   className={classes.linkTxt}
                 >

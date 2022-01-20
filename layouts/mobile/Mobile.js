@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     fontSize: 14,
     lineHeight: '20px',
+    '& .ql-size-large': {
+      fontSize: 24,
+      lineHeight: '28px',
+      fontWeight: 200
+    },
     '& .ql-size-huge': {
       fontSize: 24,
       lineHeight: '28px',

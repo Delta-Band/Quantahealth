@@ -78,7 +78,6 @@ const useStyles = makeStyles(theme => ({
     // paddingRight: 0,
     flexShrink: 0,
     fontSize: '17px !important',
-    maxWidth: '27vw',
     lineHeight: '27px !important',
     '& .ql-size-large': {
       fontSize: 38,

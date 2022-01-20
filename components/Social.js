@@ -9,7 +9,9 @@ import { Twitter as TwitterIcon } from '@styled-icons/boxicons-logos/Twitter';
 const useStyles = makeStyles(theme => ({
   socialWrapper: {
     display: 'inline-flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(2.5)
   },
   twitterAdjust: {
     '& svg': {

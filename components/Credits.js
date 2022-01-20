@@ -12,7 +12,10 @@ const useStyles = makeStyles(theme => ({
   },
   brand: {
     marginInline: theme.spacing(1),
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    '& .MuiButton-label': {
+      transform: 'translateY(2px)'
+    }
   }
 }));
 
