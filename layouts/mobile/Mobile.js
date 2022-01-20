@@ -29,16 +29,19 @@ const useStyles = makeStyles(theme => ({
   },
   richTxt: {
     flexShrink: 0,
-    fontSize: 16,
-    lineHeight: '25px',
+    fontSize: 14,
+    lineHeight: '20px',
     '& .ql-size-huge': {
       fontSize: 24,
       lineHeight: '28px',
-      fontWeight: 'bold'
+      fontWeight: 600
     },
     '& a': {
       color: theme.palette.link.primary,
       textDecoration: 'underline'
+    },
+    '& p': {
+      marginBlock: theme.spacing(3)
     }
   },
   footer: {

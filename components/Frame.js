@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 const useStyles = makeStyles(theme => ({
   frameWrapper: {
-    paddingBlock: theme.spacing(5),
+    paddingBlock: theme.spacing(7),
     paddingInline: theme.spacing(3),
     minHeight: '100%',
     display: 'flex',

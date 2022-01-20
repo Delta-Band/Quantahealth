@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel_pull_env": "vercel env pull"
   },
   "dependencies": {
     "@deltaband/delta-next-mui": "^0.1.37",

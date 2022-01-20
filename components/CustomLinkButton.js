@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.link.primary,
     paddingInline: theme.spacing(3),
     textTransform: 'capitalize',
+    marginBlockStart: theme.spacing(1.5),
     '& .MuiButton-label': {
       transform: 'translateY(0)'
     }

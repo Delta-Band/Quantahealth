@@ -10,6 +10,7 @@ import {
 } from '../layouts';
 
 export default function PageLayout({ children }) {
+  const { frames, footer } = children.props;
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
   const desktop = useMediaQuery(theme => theme.breakpoints.up('desktop'));
@@ -30,8 +31,8 @@ export default function PageLayout({ children }) {
         return (
           <DesktopLayout
             logo={brand.logoDesktop}
-            frames={children.props.frames}
-            footer={children.props.footer}
+            frames={frames}
+            footer={footer}
           >
             {children}
           </DesktopLayout>
@@ -40,37 +41,29 @@ export default function PageLayout({ children }) {
         return (
           <MobileLandscapeLayout
             logo={brand.logoMobile}
-            frames={children.props.frames}
-            footer={children.props.footer}
+            frames={frames}
+            footer={footer}
           >
             {children}
           </MobileLandscapeLayout>
         );
       case ipad:
         return (
-          <IpadLayout
-            logo={brand.logoDesktop}
-            frames={children.props.frames}
-            footer={children.props.footer}
-          >
+          <IpadLayout logo={brand.logoDesktop} frames={frames} footer={footer}>
             {children}
           </IpadLayout>
         );
       default:
         // defaults to smartphones
         return portrait ? (
-          <MobileLayout
-            logo={brand.logoMobile}
-            frames={children.props.frames}
-            footer={children.props.footer}
-          >
+          <MobileLayout logo={brand.logoMobile} frames={frames} footer={footer}>
             {children}
           </MobileLayout>
         ) : (
           <MobileLandscapeLayout
             logo={brand.logoMobile}
-            frames={children.props.frames}
-            footer={children.props.footer}
+            frames={frames}
+            footer={footer}
           >
             {children}
           </MobileLandscapeLayout>
@@ -78,5 +71,5 @@ export default function PageLayout({ children }) {
     }
   }
 
-  return children.props.frames ? <div>{getResponsiveLayout()}</div> : null;
+  return frames ? <div>{getResponsiveLayout()}</div> : null;
 }

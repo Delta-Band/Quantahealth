@@ -74,15 +74,22 @@ const useStyles = makeStyles(theme => ({
     }
   },
   richTxt: {
-    // paddingLeft: 53,
+    maxWidth: 350,
+    // paddingRight: 0,
     flexShrink: 0,
     fontSize: '17px !important',
     maxWidth: '27vw',
     lineHeight: '27px !important',
+    '& .ql-size-large': {
+      fontSize: 38,
+      lineHeight: '44px',
+      fontWeight: 200
+    },
     '& .ql-size-huge': {
-      fontSize: 24,
-      lineHeight: '28px',
-      fontWeight: 'bold'
+      fontSize: 38,
+      lineHeight: '44px',
+      fontWeight: 900,
+      textTransform: 'uppercase'
     },
     '& a': {
       color: theme.palette.link.primary,
@@ -154,7 +161,7 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
             }}
             className={cx(classes.frameWrapper, 'frameWrapper')}
           >
-            <div>
+            <div className={classes.richTxt}>
               <RichText html={frame.richTxt} />
               <CustomLinkButton frame={frame} />
             </div>

@@ -17,7 +17,7 @@ export function init() {
     firebaseApp = getApp();
   } catch (e) {
     firebaseApp = initializeApp({
-      apiKey: 'AIzaSyCVoJ1fNik-brXSirPwXfzEzpK4HDJyIdE',
+      apiKey: process.env.REACTOR_API_KEY,
       authDomain: 'reactor-dam.firebaseapp.com',
       databaseURL: 'https://reactor-dam.firebaseio.com',
       projectId: 'reactor-dam',

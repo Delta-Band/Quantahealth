@@ -67,10 +67,10 @@ const useStyles = makeStyles(theme => ({
   },
   frameWrapper: {
     // minHeight: 'unset !important',
-    paddingInline: theme.spacing(5),
-    '&:first-child': {
-      paddingTop: theme.spacing(10)
-    }
+    paddingInline: theme.spacing(21),
+    paddingTop: theme.spacing(0)
+    // '&:first-child': {
+    // }
   },
   media: {
     position: 'relative !important'

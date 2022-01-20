@@ -8,3 +8,4 @@ export { default as Footer } from './Footer';
 export { default as Media } from './Media';
 export { default as CustomLinkButton } from './CustomLinkButton';
 export { default as Credits } from './Credits';
+export { default as SpashScreen } from './SpashScreen';

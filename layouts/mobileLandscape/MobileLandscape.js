@@ -79,12 +79,12 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(3),
     flexShrink: 0,
     fontSize: 14,
-    lineHeight: '22px',
+    lineHeight: '20px',
     '& .ql-size-huge': {
-      fontSize: 18,
-      lineHeight: '25px',
+      fontSize: 24,
+      lineHeight: '28px',
       display: 'inline-block',
-      fontWeight: 'bold'
+      fontWeight: 600
     },
     '& a': {
       color: theme.palette.link.primary,
@@ -94,11 +94,14 @@ const useStyles = makeStyles(theme => ({
       marginBlock: theme.spacing(3)
     },
     [theme.breakpoints.up('md')]: {
+      maxWidth: 350,
+      paddingRight: 0,
       fontSize: 16,
       lineHeight: '28px',
       '& .ql-size-huge': {
         fontSize: 22,
-        lineHeight: '32px'
+        lineHeight: '32px',
+        fontWeight: 900
       }
     }
   },
