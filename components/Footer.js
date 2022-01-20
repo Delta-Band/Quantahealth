@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     width: '100vw',
     zIndex: 1,
     paddingInline: theme.spacing(6),
-    paddingTop: theme.spacing(5),
+    paddingTop: theme.spacing(7),
     paddingBottom: theme.spacing(5)
   },
   linkTxt: {
@@ -51,11 +51,6 @@ const useStyles = makeStyles(theme => ({
   madeBy: {
     margin: 0,
     marginTop: theme.spacing(2)
-  },
-  credit: {
-    '& p': {
-      fontSize: 16
-    }
   }
 }));
 

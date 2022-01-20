@@ -29,15 +29,16 @@ const useStyles = makeStyles(theme => ({
     }
   },
   btn: {
-    borderRadius: 3,
-    height: 30,
+    borderRadius: 20,
+    height: 40,
+    width: 40,
+    minWidth: 'unset',
     // background: 'red',
     marginTop: 0,
-    background: 'rgba(255, 255, 255, 0.05)',
-    marginInlineEnd: theme.spacing(1),
-    '&:hover': {
-      background: 'rgba(255, 255, 255, 0.1)'
-    }
+    marginInlineEnd: theme.spacing(3)
+    // '&:hover': {
+    //   background: 'rgba(255, 255, 255, 0.1)'
+    // }
   }
 }));
 
@@ -47,16 +48,39 @@ export default function Social({ data }) {
   return (
     <div className={classes.socialWrapper}>
       <Button
+        vairant='contained'
         size='small'
+        color='secondary'
         className={cx(classes.btn, classes.facebookAdjust)}
-        variant='outlined'
+        style={{
+          color: data.bgColor || '#FFF',
+          backgroundColor: data.textMainColor || '#000'
+        }}
       >
         <FacebookIcon size={24} />
       </Button>
-      <Button size='small' className={cx(classes.btn, classes.linkedinAdjust)}>
+      <Button
+        size='small'
+        color='secondary'
+        vairant='contained'
+        className={cx(classes.btn, classes.linkedinAdjust)}
+        style={{
+          color: data.bgColor || '#FFF',
+          backgroundColor: data.textMainColor || '#000'
+        }}
+      >
         <LinkedinIcon size={24} />
       </Button>
-      <Button size='small' className={cx(classes.btn, classes.twitterAdjust)}>
+      <Button
+        vairant='contained'
+        size='small'
+        color='secondary'
+        className={cx(classes.btn, classes.twitterAdjust)}
+        style={{
+          color: data.bgColor || '#FFF',
+          backgroundColor: data.textMainColor || '#000'
+        }}
+      >
         <TwitterIcon size={24} />
       </Button>
     </div>

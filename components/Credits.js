@@ -6,15 +6,16 @@ const useStyles = makeStyles(theme => ({
   creditsWrapper: {
     display: 'inline-flex',
     alignItems: 'center',
+    marginTop: theme.spacing(1),
     '& p': {
       fontSize: 16
     }
   },
   brand: {
     marginInline: theme.spacing(1),
-    fontStyle: 'italic',
+    // fontStyle: 'italic',
     '& .MuiButton-label': {
-      transform: 'translateY(2px)'
+      transform: 'translateY(0px)'
     }
   }
 }));
