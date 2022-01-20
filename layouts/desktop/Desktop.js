@@ -77,8 +77,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 350,
     // paddingRight: 0,
     flexShrink: 0,
-    fontSize: '17px !important',
-    lineHeight: '27px !important',
     '& .ql-size-large': {
       fontSize: 38,
       lineHeight: '44px',
@@ -95,7 +93,9 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline'
     },
     '& p': {
-      marginBlock: theme.spacing(4)
+      marginBlock: theme.spacing(4),
+      fontSize: '17px',
+      lineHeight: '27px'
     }
   },
   footerWrapper: {

@@ -78,8 +78,6 @@ const useStyles = makeStyles(theme => ({
     paddingRight: '10vw',
     paddingLeft: theme.spacing(3),
     flexShrink: 0,
-    fontSize: 14,
-    lineHeight: '20px',
     '& .ql-size-large': {
       fontSize: 24,
       lineHeight: '28px',
@@ -96,13 +94,13 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline'
     },
     '& p': {
-      marginBlock: theme.spacing(3)
+      marginBlock: theme.spacing(3),
+      fontSize: 14,
+      lineHeight: '20px'
     },
     [theme.breakpoints.up('md')]: {
       maxWidth: 350,
       paddingRight: 0,
-      fontSize: 16,
-      lineHeight: '22px',
       '& .ql-size-large': {
         fontSize: 34,
         lineHeight: '38px',
@@ -112,6 +110,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: 34,
         lineHeight: '38px',
         fontWeight: 900
+      },
+      '& p': {
+        fontSize: 16,
+        lineHeight: '22px'
       }
     }
   },

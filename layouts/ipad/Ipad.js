@@ -35,8 +35,6 @@ const useStyles = makeStyles(theme => ({
   },
   richTxt: {
     flexShrink: 0,
-    fontSize: 16,
-    lineHeight: '22px',
     '& .ql-size-large': {
       fontSize: 34,
       lineHeight: '36px',
@@ -52,7 +50,9 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline'
     },
     '& p': {
-      marginBlock: theme.spacing(4)
+      marginBlock: theme.spacing(4),
+      ontSize: 16,
+      lineHeight: '22px'
     }
   },
   contentWrapper: {
