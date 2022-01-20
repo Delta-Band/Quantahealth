@@ -89,8 +89,10 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
             className={classes.media}
           />
-          <RichText html={frame.richTxt} className={classes.richTxt} />
-          <CustomLinkButton frame={frame} />
+          <div>
+            <RichText html={frame.richTxt} className={classes.richTxt} />
+            <CustomLinkButton frame={frame} />
+          </div>
         </Frame>
       ))}
       <NavBar
