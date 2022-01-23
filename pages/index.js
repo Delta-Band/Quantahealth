@@ -9,13 +9,13 @@ export async function getServerSideProps(context) {
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
   const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
   const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
-  const splash = await reactor.getFixed('BVqa4A7ZQCYYCYDUjyDG');
+  // const splash = await reactor.getFixed('BVqa4A7ZQCYYCYDUjyDG');
   const props = {
     frames: homeFrames || [],
     brand,
     seo,
-    footer,
-    splash
+    footer
+    // splash
   };
   return {
     props
