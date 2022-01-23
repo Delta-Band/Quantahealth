@@ -1,9 +1,9 @@
 import React from 'react';
 import * as reactor from '../reactor';
-import { Helmet, SpashScreen } from '../components';
+import { Helmet } from '../components';
 import { Typography } from '@mui/material';
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   reactor.init();
   const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
@@ -18,8 +18,8 @@ export async function getStaticProps(context) {
     splash
   };
   return {
-    props,
-    revalidate: 10
+    props
+    // revalidate: 10
   };
 }
 
@@ -32,7 +32,6 @@ export default function Home({ seo, brand, splash }) {
         imageForSocial={brand.imageForSocial}
         favicon={brand.favicon}
       />
-      <SpashScreen data={splash} />
     </>
   );
 }

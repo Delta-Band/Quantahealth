@@ -9,8 +9,7 @@ import {
   IpadLayout
 } from '../layouts';
 
-export default function PageLayout({ children }) {
-  const { frames, footer } = children.props;
+export default function PageLayout({ frames, footer, children }) {
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
   const desktop = useMediaQuery(theme => theme.breakpoints.up('desktop'));

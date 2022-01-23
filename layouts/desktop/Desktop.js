@@ -18,7 +18,13 @@ const useStyles = makeStyles(theme => ({
   mainWrapper: {
     height: '100vh',
     maxHeight: '-webkit-fill-available',
-    overflow: 'auto'
+    overflow: 'auto',
+    '&::-webkit-scrollbar': {
+      width: '12px'
+    },
+    '&::-webkit-scrollbar-thumb': {
+      borderLeft: '10px solid black'
+    }
   },
   innerWrapper: {
     paddingLeft: 200,
@@ -101,8 +107,9 @@ const useStyles = makeStyles(theme => ({
   footerWrapper: {
     background: 'black',
     width: '100vw',
-    width: '100%',
-    paddingLeft: 'calc(50vw + 32.5px)',
+    width: 'calc(100% - 24px)',
+    marginLeft: theme.spacing(2),
+    paddingLeft: 'calc(50vw + 8.5px)',
     paddingRight: '0',
     zIndex: 1,
     position: 'relative',

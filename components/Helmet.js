@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import React from 'react';
 import Head from 'next/head';
 
@@ -28,6 +29,10 @@ export default function Helmet({
       />
       <meta httpEquiv='ScreenOrientation' content='autoRotate:disabled' />
       <link rel='preconnect' href='https://fonts.gstatic.com' />
+      <script
+        type='text/javascript'
+        src='https://unpkg.com/lottie-interactive@latest/dist/lottie-interactive.js'
+      ></script>
     </Head>
   );
 }

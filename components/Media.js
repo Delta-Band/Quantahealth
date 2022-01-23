@@ -26,7 +26,7 @@ export default function Media({ frame, visibleFrame, className }) {
         videoRef.current.pause();
       }
     }
-  }, [visibleFrame, videoRef.current]);
+  }, [visibleFrame.id, frame.id]);
 
   return (
     <>
