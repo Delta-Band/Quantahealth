@@ -19,7 +19,7 @@
     "classnames": "^2.3.1",
     "cors": "^2.8.5",
     "disable-scroll": "^0.6.0",
-    "firebase": "9.4.0",
+    "firebase": "^8.4.1",
     "framer-motion": "3.6.2",
     "hamburger-react": "^2.4.1",
     "next": "10.0.7",

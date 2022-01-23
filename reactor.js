@@ -1,65 +1,41 @@
-import { initializeApp, getApp } from 'firebase/app';
-import {
-  getFirestore,
-  getDoc,
-  getDocs,
-  doc,
-  collection,
-  query,
-  where
-} from 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
-let db;
-let firebaseApp;
+const getStructuredData = (order, querySnapshot) => {
+  const structuredData = [];
+  order.forEach(itemId => {
+    const item = querySnapshot.docs.find(itm => itm.id === itemId).data();
+    if (item.published === 'Publish') {
+      Object.keys(item).forEach(function (key) {
+        if (item[key].seconds) {
+          item[key] = item[key].toDate().toString();
+        }
+      });
+      const structuredItem = Object.assign({}, { id: itemId }, item);
+      structuredData.push(structuredItem);
+    }
+  });
+  return structuredData;
+};
 
-export function init() {
-  try {
-    firebaseApp = getApp();
-  } catch (e) {
-    firebaseApp = initializeApp({
-      apiKey: 'AIzaSyCVoJ1fNik-brXSirPwXfzEzpK4HDJyIdE',
-      authDomain: 'reactor-dam.firebaseapp.com',
-      databaseURL: 'https://reactor-dam.firebaseio.com',
-      projectId: 'reactor-dam',
-      storageBucket: 'reactor-dam.appspot.com',
-      messagingSenderId: '198256799515',
-      appId: '1:198256799515:web:3cf8edc02e02434b466dbe'
-    });
-    db = getFirestore();
-    console.log('Reactor initialized');
-  }
-}
-
-export async function getUserData(uid, orderBy) {
-  if (!db) return;
-  const docRef = doc(db, 'users', uid);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-  // console.log(data);
-  return data;
-}
-
-export async function getModular(id, orderBy, direction, limit) {
-  const db = getFirestore();
-  const snapshot = await getDoc(doc(db, 'collections', id));
-  const data = snapshot.data();
-  let order = data.order;
+const getCollection = async (collectionId, orderBy, direction, limit) => {
+  const _db = firebase.firestore();
+  const ref = _db.collection('collections').doc(collectionId);
+  const collection = await ref.get();
+  let order = collection.data().order;
   if (order === '') {
     return [];
   } else {
     order = order.split(' | ');
   }
-  let q = query(
-    collection(db, `collections/${id}/data`),
-    where('_show', '==', true)
-  );
+  let query = ref.collection('data').where('_show', '==', true);
   if (orderBy) {
-    q = q.orderBy(orderBy, direction);
+    query = query.orderBy(orderBy, direction);
   }
   if (limit) {
-    q = q.limit(limit);
+    query = query.limit(limit);
   }
-  let items = await getDocs(q);
+  let items = await query.get();
   if (orderBy) {
     items = items.docs.reduce((acc, item) => {
       const data = item.data();
@@ -87,20 +63,69 @@ export async function getModular(id, orderBy, direction, limit) {
       return acc;
     }, []);
   }
-  // console.log(items);
-  return items;
-}
 
-export async function getFixed(id) {
-  const db = getFirestore();
-  const snapshot = await getDoc(doc(db, 'pages', id));
-  const data = snapshot.data().data;
-  if (!data) return {};
-  Object.keys(data).forEach(function (key) {
-    if (data[key].seconds) {
-      data[key] = data[key].toDate().toString();
+  return items;
+};
+
+const getDoc = async pageId => {
+  const ref = firebase.firestore().collection('pages').doc(pageId);
+  const page = await ref.get();
+  const data = page.data().data;
+  return data;
+};
+
+const subscribeToCollection = async (
+  collectionId,
+  cb,
+  options = {
+    preLoad: []
+  }
+) => {
+  let order = [];
+  let querySnapshot = [];
+  const ref = firebase.firestore().collection('collections').doc(collectionId);
+
+  ref.onSnapshot(doc => {
+    order = doc.data().order.split(' | ');
+    if (querySnapshot.length) {
+      cb(getStructuredData(order, querySnapshot, options.preLoad));
     }
   });
-  // console.log(data);
-  return data;
-}
+
+  ref.collection('data').onSnapshot(_querySnapshot => {
+    querySnapshot = _querySnapshot;
+    if (order.length) {
+      cb(getStructuredData(order, querySnapshot, options.preLoad));
+    }
+  });
+};
+
+const subscribeToPage = async (pageId, cb) => {
+  const ref = firebase.firestore().collection('pages').doc(pageId);
+
+  ref.onSnapshot(doc => {
+    cb(doc.data().data);
+  });
+};
+
+const init = () => {
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyCVoJ1fNik-brXSirPwXfzEzpK4HDJyIdE',
+      authDomain: 'reactor-dam.firebaseapp.com',
+      databaseURL: 'https://reactor-dam.firebaseio.com',
+      projectId: 'reactor-dam',
+      storageBucket: 'reactor-dam.appspot.com',
+      messagingSenderId: '198256799515',
+      appId: '1:198256799515:web:3cf8edc02e02434b466dbe'
+    });
+  }
+};
+
+export default {
+  init,
+  getCollection,
+  getDoc,
+  subscribeToCollection,
+  subscribeToPage
+};

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useWindowOrientation from 'use-window-orientation';
-import * as reactor from '../reactor';
+import reactor from '../reactor';
 import {
   DesktopLayout,
   MobileLayout,
@@ -19,7 +19,7 @@ export default function PageLayout({ frames, footer, children }) {
   useEffect(() => {
     reactor.init();
     (async function getBarndData() {
-      const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
+      const brand = await reactor.getDoc('ByUskJqD9mSicfW7DAfx');
       setBrand(brand);
     })();
   }, []);

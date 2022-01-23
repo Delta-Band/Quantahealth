@@ -1,15 +1,15 @@
 import React from 'react';
-import * as reactor from '../reactor';
+import reactor from '../reactor';
 import { Helmet } from '../components';
 import { Typography } from '@mui/material';
 
 export async function getServerSideProps(context) {
   reactor.init();
-  const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
-  const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
-  const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
-  const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
-  const splash = await reactor.getFixed('BVqa4A7ZQCYYCYDUjyDG');
+  const homeFrames = await reactor.getCollection('PcDI6UBZsHluOmA3R98o');
+  const brand = await reactor.getDoc('ByUskJqD9mSicfW7DAfx');
+  const seo = await reactor.getDoc('I4U9QMp4gGDtjeecssdZ');
+  const footer = await reactor.getDoc('EZWgV5pcAXgJgDvM7O6q');
+  const splash = await reactor.getDoc('BVqa4A7ZQCYYCYDUjyDG');
   const props = {
     frames: homeFrames || [],
     brand,
