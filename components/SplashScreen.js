@@ -46,7 +46,7 @@ export default function SplashScreen({ splash }) {
       setHide(true);
     }, splash.time * 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [JSON.stringify(splash)]);
 
   return splash ? (
     <motion.div
