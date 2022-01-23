@@ -3,23 +3,23 @@ import * as reactor from '../reactor';
 import { Helmet } from '../components';
 import { Typography } from '@mui/material';
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   reactor.init();
   const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
   const seo = await reactor.getFixed('I4U9QMp4gGDtjeecssdZ');
   const footer = await reactor.getFixed('EZWgV5pcAXgJgDvM7O6q');
-  // const splash = await reactor.getFixed('BVqa4A7ZQCYYCYDUjyDG');
+  const splash = await reactor.getFixed('BVqa4A7ZQCYYCYDUjyDG');
   const props = {
     frames: homeFrames || [],
     brand,
     seo,
-    footer
-    // splash
+    footer,
+    splash
   };
   return {
-    props
-    // revalidate: 10
+    props,
+    revalidate: 10
   };
 }
 
