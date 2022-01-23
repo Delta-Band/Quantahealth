@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useWindowOrientation from 'use-window-orientation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles(theme => ({
   splashscreenWrapper: {
@@ -48,34 +48,28 @@ export default function SplashScreen({ splash }) {
   }, []);
 
   return (
-    <AnimatePresence>
-      {!hide && splash && (
-        <motion.div
-          className={classes.splashscreenWrapper}
-          style={{
-            background: splash.bgColor
-          }}
-          initial={{ x: 0 }}
-          animate={{ x: 0 }}
-          exit={{ x: '-100%' }}
-          transition={{ type: 'spring', stiffness: 50 }}
-        >
-          <img src={splash.topLeftLogo} alt='logo' className={classes.logo} />
-          <lottie-interactive
-            autoplay
-            style={{
-              width: portrait ? '75%' : 'unset',
-              height: portrait ? 'unset' : '75%',
-              top: '50%',
-              left: '50%',
-              position: 'absolute',
-              transform: 'translate(-50%, -50%)'
-            }}
-            path={splash.lottie}
-            loop
-          />
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      className={classes.splashscreenWrapper}
+      style={{
+        background: splash.bgColor
+      }}
+      animate={{ x: hide ? '-100%' : 0 }}
+      transition={{ type: 'spring', stiffness: 50 }}
+    >
+      <img src={splash.topLeftLogo} alt='logo' className={classes.logo} />
+      <lottie-interactive
+        autoplay
+        style={{
+          width: portrait ? '75%' : 'unset',
+          height: portrait ? 'unset' : '75%',
+          top: '50%',
+          left: '50%',
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)'
+        }}
+        path={splash.lottie}
+        loop
+      />
+    </motion.div>
   );
 }
