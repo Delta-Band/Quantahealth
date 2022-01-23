@@ -3,7 +3,7 @@ import * as reactor from '../reactor';
 import { Helmet } from '../components';
 import { Typography } from '@mui/material';
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   reactor.init();
   const homeFrames = await reactor.getModular('PcDI6UBZsHluOmA3R98o');
   const brand = await reactor.getFixed('ByUskJqD9mSicfW7DAfx');
@@ -18,8 +18,8 @@ export async function getStaticProps(context) {
     splash
   };
   return {
-    props,
-    revalidate: 10
+    props
+    //revalidate: 10
   };
 }
 
