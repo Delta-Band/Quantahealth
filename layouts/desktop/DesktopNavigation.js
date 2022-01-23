@@ -41,7 +41,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
+export default function DesktopNavigation({
+  mainNavItms = [],
+  footerIsVisible = false
+}) {
   const classes = useStyles();
   const router = useRouter();
   const [active, setActive] = useState('home');
@@ -127,5 +130,3 @@ function DesktopNavigation({ mainNavItms = [], footerIsVisible = false }) {
     </motion.div>
   );
 }
-
-export default React.forwardRef(DesktopNavigation);

@@ -49,7 +49,7 @@ export default function SplashScreen({ splash }) {
 
   return (
     <AnimatePresence>
-      {!hide && (
+      {!hide && splash && (
         <motion.div
           className={classes.splashscreenWrapper}
           style={{
