@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps }) {
       <PageLayout {...pageProps}>
         <Component {...pageProps} />
       </PageLayout>
-      <SplashScreen {...pageProps} />
+      {/* <SplashScreen {...pageProps} /> */}
     </ThemeProvider>
   );
 }

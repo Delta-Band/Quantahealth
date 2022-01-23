@@ -59,7 +59,7 @@ export default function SplashScreen({ splash }) {
       transition={{ type: 'spring', stiffness: 50 }}
     >
       <img src={splash.topLeftLogo} alt='logo' className={classes.logo} />
-      {/* <lottie-interactive
+      <lottie-interactive
         autoplay
         style={{
           width: portrait ? '75%' : 'unset',
@@ -71,7 +71,7 @@ export default function SplashScreen({ splash }) {
         }}
         path={splash.lottie}
         loop
-      /> */}
+      />
     </motion.div>
   ) : null;
 }
