@@ -45,9 +45,10 @@ export default function SplashScreen({ splash }) {
     setTimeout(() => {
       setHide(true);
     }, splash.time * 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return splash ? (
     <motion.div
       className={classes.splashscreenWrapper}
       style={{
@@ -71,5 +72,5 @@ export default function SplashScreen({ splash }) {
         loop
       />
     </motion.div>
-  );
+  ) : null;
 }
