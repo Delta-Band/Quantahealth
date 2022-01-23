@@ -42,6 +42,7 @@ export default function SplashScreen({ splash }) {
   const { portrait } = useWindowOrientation();
 
   useEffect(() => {
+    if (!splash) return;
     setTimeout(() => {
       setHide(true);
     }, splash.time * 1000);
