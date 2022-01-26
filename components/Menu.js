@@ -6,6 +6,7 @@ import { Home as HomeIcon } from '@styled-icons/foundation/Home';
 import { InfoCircleFill as ContactIcon } from '@styled-icons/bootstrap/InfoCircleFill';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 
 const useStyles = makeStyles(theme => ({
   menuWrapper: {
