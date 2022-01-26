@@ -118,13 +118,12 @@ export default function Menu({
       transition={{ type: 'spring', bounce: 0 }}
     >
       <motion.ul variants={list} className={classes.list} onClick={close}>
-        <motion.li variants={listItem}>
+        <motion.li variants={listItem} className='gtm-menu-btn'>
           <Link href='/'>
             <a>
               <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
                 <Button
                   color='secondary'
-                  className='gtm-menu-btn'
                   onClick={() => {
                     setTimeout(() => {
                       document
@@ -141,7 +140,12 @@ export default function Menu({
           </Link>
         </motion.li>
         {items.map(itm => (
-          <motion.li key={itm} variants={listItem} onClick={close}>
+          <motion.li
+            key={itm}
+            variants={listItem}
+            onClick={close}
+            className='gtm-menu-btn'
+          >
             <Link href={`/${itm.toLowerCase()}`}>
               <a>
                 <motion.div
@@ -150,19 +154,16 @@ export default function Menu({
                       router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
                   }}
                 >
-                  <Button color='secondary' className='gtm-menu-btn'>
-                    {itm}
-                  </Button>
+                  <Button color='secondary'>{itm}</Button>
                 </motion.div>
               </a>
             </Link>
           </motion.li>
         ))}
-        <motion.li variants={listItem} onClick={close}>
+        <motion.li variants={listItem} onClick={close} className='gtm-menu-btn'>
           <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
             <Button
               color='secondary'
-              className='gtm-menu-btn'
               onClick={() => {
                 setTimeout(() => {
                   document
