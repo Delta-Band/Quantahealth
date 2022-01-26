@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     background: 'black',
     position: 'absolute',
     left: '50%',
+    borderRadius: `${theme.spacing(1.5)}px !important`,
     marginLeft: `-${theme.spacing(1.5) / 2}px`
   },
   circleWrapper: {
