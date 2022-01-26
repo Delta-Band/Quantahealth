@@ -83,6 +83,7 @@ export default function DesktopNavigation({
           <a>
             <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
               <Button
+                className='gtm-menu-btn'
                 onClick={() => {
                   setTimeout(() => {
                     document
@@ -106,13 +107,14 @@ export default function DesktopNavigation({
                     router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
                 }}
               >
-                <Button>{navItm}</Button>
+                <Button className='gtm-menu-btn'>{navItm}</Button>
               </motion.div>
             </a>
           </Link>
         ))}
         <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
           <Button
+            className='gtm-menu-btn'
             onClick={() => {
               setTimeout(() => {
                 document
