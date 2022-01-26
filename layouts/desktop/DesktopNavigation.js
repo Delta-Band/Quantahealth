@@ -80,7 +80,7 @@ export default function DesktopNavigation({
     >
       <div className={classes.mainNavItms}>
         <Link href='/'>
-          <a className='gtm-menu-btn'>
+          <a>
             <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
               <Button
                 onClick={() => {
@@ -92,29 +92,28 @@ export default function DesktopNavigation({
                 }}
               >
                 <HomeIcon size={20} />
-                <span className={classes.linkTxt}>Home</span>
+                <span className={cx(classes.linkTxt, 'gtm-menu-btn')}>
+                  Home
+                </span>
               </Button>
             </motion.div>
           </a>
         </Link>
         {mainNavItms.map(navItm => (
           <Link href={`/${navItm.toLowerCase()}`} key={navItm}>
-            <a className='gtm-menu-btn'>
+            <a>
               <motion.div
                 animate={{
                   opacity:
                     router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
                 }}
               >
-                <Button>{navItm}</Button>
+                <Button className='gtm-menu-btn'>{navItm}</Button>
               </motion.div>
             </a>
           </Link>
         ))}
-        <motion.div
-          animate={{ opacity: active === 'contact' ? 1 : 0.4 }}
-          className='gtm-menu-btn'
-        >
+        <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
           <Button
             onClick={() => {
               setTimeout(() => {
@@ -126,7 +125,7 @@ export default function DesktopNavigation({
             // color={router.pathname === '/' ? 'primary' : 'secondary'}
           >
             <ContactIcon size={18} />
-            <span className={classes.linkTxt}>Contact</span>
+            <span className={cx(classes.linkTxt, 'gtm-menu-btn')}>Contact</span>
           </Button>
         </motion.div>
       </div>

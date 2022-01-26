@@ -118,7 +118,7 @@ export default function Menu({
       transition={{ type: 'spring', bounce: 0 }}
     >
       <motion.ul variants={list} className={classes.list} onClick={close}>
-        <motion.li variants={listItem} className='gtm-menu-btn'>
+        <motion.li variants={listItem}>
           <Link href='/'>
             <a>
               <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
@@ -133,19 +133,16 @@ export default function Menu({
                   }}
                 >
                   <HomeIcon size={20} />
-                  <span className={classes.linkTxt}>Home</span>
+                  <span className={cx(classes.linkTxt, 'gtm-menu-btn')}>
+                    Home
+                  </span>
                 </Button>
               </motion.div>
             </a>
           </Link>
         </motion.li>
         {items.map(itm => (
-          <motion.li
-            key={itm}
-            variants={listItem}
-            onClick={close}
-            className='gtm-menu-btn'
-          >
+          <motion.li key={itm} variants={listItem} onClick={close}>
             <Link href={`/${itm.toLowerCase()}`}>
               <a>
                 <motion.div
@@ -154,13 +151,15 @@ export default function Menu({
                       router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
                   }}
                 >
-                  <Button color='secondary'>{itm}</Button>
+                  <Button color='secondary' className='gtm-menu-btn'>
+                    {itm}
+                  </Button>
                 </motion.div>
               </a>
             </Link>
           </motion.li>
         ))}
-        <motion.li variants={listItem} onClick={close} className='gtm-menu-btn'>
+        <motion.li variants={listItem} onClick={close}>
           <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
             <Button
               color='secondary'
@@ -173,7 +172,9 @@ export default function Menu({
               }}
             >
               <ContactIcon size={18} />
-              <span className={classes.linkTxt}>Contact</span>
+              <span className={cx(classes.linkTxt, 'gtm-menu-btn')}>
+                Contact
+              </span>
             </Button>
           </motion.div>
         </motion.li>
