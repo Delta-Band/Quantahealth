@@ -124,6 +124,7 @@ export default function Menu({
               <motion.div animate={{ opacity: active === 'home' ? 1 : 0.4 }}>
                 <Button
                   color='secondary'
+                  className='gtm-menu-btn'
                   onClick={() => {
                     setTimeout(() => {
                       document
@@ -149,7 +150,9 @@ export default function Menu({
                       router.pathname === `/${navItm.toLowerCase()}` ? 1 : 0.4
                   }}
                 >
-                  <Button color='secondary'>{itm}</Button>
+                  <Button color='secondary' className='gtm-menu-btn'>
+                    {itm}
+                  </Button>
                 </motion.div>
               </a>
             </Link>
@@ -159,6 +162,7 @@ export default function Menu({
           <motion.div animate={{ opacity: active === 'contact' ? 1 : 0.4 }}>
             <Button
               color='secondary'
+              className='gtm-menu-btn'
               onClick={() => {
                 setTimeout(() => {
                   document
