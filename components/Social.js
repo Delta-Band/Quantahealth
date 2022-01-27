@@ -44,45 +44,58 @@ const useStyles = makeStyles(theme => ({
 
 export default function Social({ data }) {
   const classes = useStyles();
+  console.log(data);
 
   return (
     <div className={classes.socialWrapper}>
-      <Button
-        vairant='contained'
-        size='small'
-        color='secondary'
-        className={cx(classes.btn, classes.facebookAdjust)}
-        style={{
-          color: data.bgColor || '#FFF',
-          backgroundColor: data.textMainColor || '#000'
-        }}
-      >
-        <FacebookIcon size={24} />
-      </Button>
-      <Button
-        size='small'
-        color='secondary'
-        vairant='contained'
-        className={cx(classes.btn, classes.linkedinAdjust)}
-        style={{
-          color: data.bgColor || '#FFF',
-          backgroundColor: data.textMainColor || '#000'
-        }}
-      >
-        <LinkedinIcon size={24} />
-      </Button>
-      <Button
-        vairant='contained'
-        size='small'
-        color='secondary'
-        className={cx(classes.btn, classes.twitterAdjust)}
-        style={{
-          color: data.bgColor || '#FFF',
-          backgroundColor: data.textMainColor || '#000'
-        }}
-      >
-        <TwitterIcon size={24} />
-      </Button>
+      {data.facebook && (
+        <Button
+          vairant='contained'
+          target='_blank'
+          href={data.facebook}
+          size='small'
+          color='secondary'
+          className={cx(classes.btn, classes.facebookAdjust)}
+          style={{
+            color: data.bgColor || '#FFF',
+            backgroundColor: data.textMainColor || '#000'
+          }}
+        >
+          <FacebookIcon size={24} />
+        </Button>
+      )}
+      {data.linkedin && (
+        <Button
+          href={data.linkedin}
+          size='small'
+          color='secondary'
+          vairant='contained'
+          target='_blank'
+          className={cx(classes.btn, classes.linkedinAdjust)}
+          style={{
+            color: data.bgColor || '#FFF',
+            backgroundColor: data.textMainColor || '#000'
+          }}
+        >
+          <LinkedinIcon size={24} />
+        </Button>
+      )}
+      {data.twitter && (
+        <Button
+          vairant='contained'
+          size='small'
+          href={data.twitter}
+          target='_blank'
+          color='secondary'
+          className={cx(classes.btn, classes.twitterAdjust)}
+          style={{
+            color: data.bgColor || '#FFF',
+            backgroundColor: data.textMainColor || '#000'
+          }}
+        >
+          <TwitterIcon size={24} />
+        </Button>
+      )}
     </div>
   );
 }
