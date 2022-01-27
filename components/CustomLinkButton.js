@@ -42,7 +42,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function CustomLinkButton({ frame }) {
   const classes = useStyles();
-  if (frame.customLink && frame.customLinkLable) {
+  if (
+    frame.customLinkVisible === 'yes' &&
+    frame.customLink &&
+    frame.customLinkLable
+  ) {
     return (
       <Button
         className={classes.customlinkbuttonWrapper}
