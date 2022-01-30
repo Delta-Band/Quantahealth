@@ -91,8 +91,7 @@ const useStyles = makeStyles(theme => ({
     '& .ql-size-huge': {
       fontSize: 38,
       lineHeight: '44px',
-      fontWeight: 900,
-      textTransform: 'uppercase'
+      fontWeight: 900
     },
     '& a': {
       color: theme.palette.link.primary,
