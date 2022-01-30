@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Social({ data }) {
   const classes = useStyles();
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className={classes.socialWrapper}>
