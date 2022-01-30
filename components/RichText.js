@@ -5,14 +5,9 @@ import { Typography } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
   richTxt: {
-    // flexShrink: 0,
-    // fontSize: 16,
-    // lineHeight: '25px'
-    // '& .ql-size-huge': {
-    //   fontSize: 24,
-    //   lineHeight: '28px',
-    //   fontWeight: 'bold'
-    // }
+    '& .ql-size-huge': {
+      textTransform: 'uppercase'
+    }
   }
 }));
 
