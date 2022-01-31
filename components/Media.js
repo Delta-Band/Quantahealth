@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import cx from 'classnames';
-import { height } from '@mui/system';
 
 const useStyles = makeStyles(theme => ({
   media: {
@@ -45,10 +44,16 @@ export default function Media({ frame, visibleFrame, className }) {
           ref={videoRef}
           playsInline
           muted
+          loop
           className={cx(classes.media, className)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{
+            opacity: 0
+            // transition: {
+            //   duration: 0
+            // }
+          }}
         >
           <source src={frame.media} type='video/mp4' />
           Your browser does not support the video tag.

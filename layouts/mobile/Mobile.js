@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollDirection } from 'react-use-scroll-direction';
+import { useWindowSize } from '../../hooks';
 import cx from 'classnames';
 import NavBar from './NavBar';
 import {
@@ -19,12 +20,28 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto'
   },
   media: {
-    position: 'relative !important'
+    width: `calc(100vw - ${theme.spacing(6)}px)`,
+    height: `calc(100vw - ${theme.spacing(6)}px)`,
+    flexShrink: 0,
+    position: 'fixed',
+    left: '50%',
+    top: theme.spacing(10),
+    transform: 'translate(-50%, 0)',
+    pointerEvents: 'none',
+    '& img': {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0
+    }
   },
   frameWrapper: {
-    // minHeight: 'unset !important',
+    position: 'relative',
+    zIndex: 1,
+    paddingTop: `calc(100vw + ${theme.spacing(0)}px) !important`,
     '&:first-child': {
-      paddingTop: theme.spacing(8)
+      paddingTop: `calc(100vw + ${theme.spacing(7)}px) !important`
     }
   },
   richTxt: {
@@ -64,6 +81,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
   const [footerIsVisible, setFooterIsVisible] = useState(
     frames[visibleFrameIndex]
   );
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     setVisibleFrame(frames[visibleFrameIndex]);
@@ -79,6 +97,9 @@ export default function MobileLayout({ logo, frames, children, footer }) {
     >
       {frames.map((frame, i) => (
         <Frame
+          rootMargin={`-${windowSize.height / 2.05 || 400}px 0px -${
+            windowSize.height / 2.05 || 400
+          }px 0px`}
           key={frame.id}
           frame={frame}
           onVisible={indx => {
@@ -92,17 +113,26 @@ export default function MobileLayout({ logo, frames, children, footer }) {
           index={i}
           className={cx(classes.frameWrapper, 'frameWrapper')}
         >
-          <Media
+          {/* <Media
             frame={frame}
             visibleFrame={visibleFrame}
             className={classes.media}
-          />
+          /> */}
           <div>
             <RichText html={frame.richTxt} className={classes.richTxt} />
             <CustomLinkButton frame={frame} />
           </div>
         </Frame>
       ))}
+      <div className={classes.media}>
+        <AnimatePresence initial={false}>
+          <Media
+            key={visibleFrame.id}
+            frame={visibleFrame}
+            visibleFrame={visibleFrame}
+          />
+        </AnimatePresence>
+      </div>
       <NavBar
         logo={logo}
         frames={frames}

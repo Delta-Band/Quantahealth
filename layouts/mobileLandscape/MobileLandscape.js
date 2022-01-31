@@ -163,7 +163,6 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
     const mediaRect = mediaEl.getBoundingClientRect();
     mediaEl.style.marginTop = -(mediaRect.height / 2) + 'px';
     mediaEl.style.marginLeft = -mediaRect.width + 'px';
-    // console.log(mediaRect.width);
   }, [windowSize.width, windowSize.height]);
 
   useEffect(() => {
