@@ -6,6 +6,7 @@ export { default as Frame } from './Frame';
 export { default as RichText } from './RichText';
 export { default as Footer } from './Footer';
 export { default as Media } from './Media';
+export { default as MediaMobile } from './MediaMobile';
 export { default as CustomLinkButton } from './CustomLinkButton';
 export { default as Credits } from './Credits';
 export { default as SplashScreen } from './SplashScreen';

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AnimatePresence } from 'framer-motion';
 import { useWindowSize } from '../../hooks';
-import { Media } from '../../components';
+import { MediaMobile } from '../../components';
 
 const useStyles = makeStyles(theme => ({
   desktopmediaWrapper: {
@@ -41,7 +41,7 @@ const variants = {
   }
 };
 
-export default function DesktopMedia({ visibleFrame }) {
+export default function DesktopMedia({ frame, visibleFrame }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
   const mediaRef = useRef();
@@ -56,13 +56,11 @@ export default function DesktopMedia({ visibleFrame }) {
 
   return (
     <div className={classes.desktopmediaWrapper} ref={mediaRef}>
-      <AnimatePresence initial={false}>
-        <Media
-          key={visibleFrame.id}
-          frame={visibleFrame}
-          visibleFrame={visibleFrame}
-        />
-      </AnimatePresence>
+      <MediaMobile
+        key={frame.id}
+        frame={frame}
+        show={visibleFrame.id === frame.id}
+      />
     </div>
   );
 }

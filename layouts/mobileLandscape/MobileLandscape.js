@@ -13,7 +13,7 @@ import {
   Frame,
   RichText,
   Footer,
-  Media,
+  MediaMobile,
   CustomLinkButton
 } from '../../components';
 import * as consts from '../consts';
@@ -179,13 +179,13 @@ export default function MobileLandscape({ logo, frames, children, footer }) {
       }}
     >
       <div className={classes.media} ref={mediaRef}>
-        <AnimatePresence initial={false}>
-          <Media
-            key={visibleFrame.id}
-            frame={visibleFrame}
-            visibleFrame={visibleFrame}
+        {frames.map(frame => (
+          <MediaMobile
+            key={frame.id}
+            frame={frame}
+            show={visibleFrame.id === frame.id}
           />
-        </AnimatePresence>
+        ))}
       </div>
       {frames.map((frame, i) => (
         <Frame

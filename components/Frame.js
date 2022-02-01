@@ -24,15 +24,23 @@ export default function Frame({
   className,
   style,
   index,
-  rootMargin = '-120px 0px -120px 0px'
+  rootMargin = '-120px 0px -120px 0px',
+  onOverlap = () => {}
 }) {
   const classes = useStyles();
+  // console.log(frame.id);
 
   return (
     <InView rootMargin={rootMargin}>
       {({ inView, ref, entry }) => {
-        // inView ? console.log(`inView:`, frame.label) : null;
+        // if (frame.id === 'tLCoeNzikRlLRe9Nk04g') console.log(entry);
+        // if (entry && entry.intersectionRatio > 0.02) {
+        //   onOverlap(true);
+        // } else {
+        //   onOverlap(false);
+        // }
         if (inView) {
+          // inView ? console.log(`inView:`, frame.label) : null;
           onVisible(index);
         }
         return (

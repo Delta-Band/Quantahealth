@@ -149,7 +149,13 @@ export default function DesktopLayout({ logo, frames, children, footer }) {
       }}
     >
       <div className={classes.innerWrapper}>
-        <DesktopMedia visibleFrame={visibleFrame} />
+        {frames.map(frame => (
+          <DesktopMedia
+            key={frame.id}
+            frame={frame}
+            visibleFrame={visibleFrame}
+          />
+        ))}
         {frames.map((frame, i) => (
           <Frame
             key={frame.id}

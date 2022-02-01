@@ -9,7 +9,7 @@ import {
   Frame,
   RichText,
   Footer,
-  Media,
+  MediaMobile,
   CustomLinkButton
 } from '../../components';
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 0,
     position: 'fixed',
     left: '50%',
-    top: theme.spacing(10),
+    top: theme.spacing(6.5),
     transform: 'translate(-50%, 0)',
     pointerEvents: 'none',
     '& img': {
@@ -39,9 +39,9 @@ const useStyles = makeStyles(theme => ({
   frameWrapper: {
     position: 'relative',
     zIndex: 1,
-    paddingTop: `calc(100vw + ${theme.spacing(0)}px) !important`,
+    paddingTop: `calc(100vw - ${theme.spacing(5)}px) !important`,
     '&:first-child': {
-      paddingTop: `calc(100vw + ${theme.spacing(7)}px) !important`
+      paddingTop: `calc(100vw - ${theme.spacing(2)}px) !important`
     }
   },
   richTxt: {
@@ -76,6 +76,7 @@ const useStyles = makeStyles(theme => ({
 export default function MobileLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
+  // const [overlappingFrame, setOverlappingFrame] = useState(null);
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
   const [footerIsVisible, setFooterIsVisible] = useState(
@@ -110,6 +111,11 @@ export default function MobileLayout({ logo, frames, children, footer }) {
                 : Math.max(indx, visibleFrameIndex)
             );
           }}
+          // onOverlap={isOverlapping => {
+          //   // if (overlappingFrame !== frame.id && isOverlapping) {
+          //   //   setOverlappingFrame(frame.id);
+          //   // }
+          // }}
           index={i}
           className={cx(classes.frameWrapper, 'frameWrapper')}
         >
@@ -124,7 +130,12 @@ export default function MobileLayout({ logo, frames, children, footer }) {
           </div>
         </Frame>
       ))}
-      <div className={classes.media}>
+      {frames.map(frame => (
+        <div className={classes.media} key={frame.id}>
+          <MediaMobile frame={frame} show={visibleFrame.id === frame.id} />
+        </div>
+      ))}
+      {/* <div className={classes.media}>
         <AnimatePresence initial={false}>
           <Media
             key={visibleFrame.id}
@@ -132,7 +143,7 @@ export default function MobileLayout({ logo, frames, children, footer }) {
             visibleFrame={visibleFrame}
           />
         </AnimatePresence>
-      </div>
+      </div> */}
       <NavBar
         logo={logo}
         frames={frames}
