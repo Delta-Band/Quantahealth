@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto'
   },
   media: {
-    width: `calc(100vw - ${theme.spacing(6)}px)`,
-    height: `calc(100vw - ${theme.spacing(6)}px)`,
+    width: `calc(100vw - ${theme.spacing(5)}px)`,
+    height: `calc(100vw - ${theme.spacing(5)}px)`,
     flexShrink: 0,
     position: 'fixed',
     left: '50%',
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     paddingTop: `calc(100vw - ${theme.spacing(5)}px) !important`,
     '&:first-child': {
-      paddingTop: `calc(100vw - ${theme.spacing(2)}px) !important`
+      paddingTop: `calc(100vw + ${theme.spacing(2)}px) !important`
     }
   },
   richTxt: {
