@@ -47,7 +47,7 @@ export default function SplashScreen({ splash }) {
     if (!splash) return;
     timeout = setTimeout(() => {
       setHide(true);
-    }, splash.time * 100000);
+    }, splash.time * 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       if (timeout) clearTimeout(timeout);
