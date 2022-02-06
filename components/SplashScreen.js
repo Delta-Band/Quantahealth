@@ -42,11 +42,15 @@ export default function SplashScreen({ splash }) {
   const { portrait } = useWindowOrientation();
 
   useEffect(() => {
+    let timeout;
     if (!splash) return;
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       setHide(true);
     }, splash.time * 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      if (timeout) clearTimeout(timeout);
+    };
   }, [JSON.stringify(splash)]);
 
   return splash ? (
@@ -60,7 +64,7 @@ export default function SplashScreen({ splash }) {
     >
       <img src={splash.topLeftLogo} alt='logo' className={classes.logo} />
       <lottie-interactive
-        autoplay
+        autoplay=''
         style={{
           width: portrait ? '75%' : 'unset',
           height: portrait ? 'unset' : '75%',
@@ -70,7 +74,10 @@ export default function SplashScreen({ splash }) {
           transform: 'translate(-50%, -50%)'
         }}
         path={splash.lottie}
-        loop
+        loop=''
+        speed='1'
+        delay='0'
+        aspect-ratio='xMidYMid slice'
       />
     </motion.div>
   ) : null;

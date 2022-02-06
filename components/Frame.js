@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { InView } from 'react-intersection-observer';
 import cx from 'classnames';
@@ -28,19 +28,22 @@ export default function Frame({
   onOverlap = () => {}
 }) {
   const classes = useStyles();
-  // console.log(frame.id);
 
   return (
     <InView rootMargin={rootMargin}>
       {({ inView, ref, entry }) => {
-        // if (frame.id === 'tLCoeNzikRlLRe9Nk04g') console.log(entry);
-        // if (entry && entry.intersectionRatio > 0.02) {
-        //   onOverlap(true);
-        // } else {
-        //   onOverlap(false);
-        // }
+        if (entry) {
+          const offset =
+            entry.target.getBoundingClientRect().top -
+            document.body.getBoundingClientRect().top;
+          // console.log(`${frame.id}: ${offset}`);
+          if (offset < 0) {
+            onOverlap(true);
+          } else {
+            onOverlap(false);
+          }
+        }
         if (inView) {
-          // inView ? console.log(`inView:`, frame.label) : null;
           onVisible(index);
         }
         return (

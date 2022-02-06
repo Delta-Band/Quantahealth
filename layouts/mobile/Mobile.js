@@ -75,8 +75,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function MobileLayout({ logo, frames, children, footer }) {
   const classes = useStyles();
+  const [rendered, setRendered] = useState(false);
   const [visibleFrameIndex, setVisibleFrameIndex] = useState(0);
-  // const [overlappingFrame, setOverlappingFrame] = useState(null);
+  const [overlappingFrames, setOverlappingFrames] = useState([]);
   const [visibleFrame, setVisibleFrame] = useState(frames[visibleFrameIndex]);
   const { scrollTargetRef, scrollDirection } = useScrollDirection();
   const [footerIsVisible, setFooterIsVisible] = useState(
@@ -87,6 +88,10 @@ export default function MobileLayout({ logo, frames, children, footer }) {
   useEffect(() => {
     setVisibleFrame(frames[visibleFrameIndex]);
   }, [visibleFrameIndex]);
+
+  useEffect(() => {
+    setRendered(true);
+  }, []);
 
   return visibleFrame ? (
     <motion.div
@@ -111,19 +116,19 @@ export default function MobileLayout({ logo, frames, children, footer }) {
                 : Math.max(indx, visibleFrameIndex)
             );
           }}
-          // onOverlap={isOverlapping => {
-          //   // if (overlappingFrame !== frame.id && isOverlapping) {
-          //   //   setOverlappingFrame(frame.id);
-          //   // }
-          // }}
+          onOverlap={isOverlapping => {
+            if (!rendered) return;
+            if (isOverlapping && !overlappingFrames.includes(frame.id)) {
+              setOverlappingFrames(overlappingFrames.concat([frame.id]));
+            } else if (!isOverlapping && overlappingFrames.includes(frame.id)) {
+              setOverlappingFrames(
+                overlappingFrames.filter(_frame => _frame !== frame.id)
+              );
+            }
+          }}
           index={i}
           className={cx(classes.frameWrapper, 'frameWrapper')}
         >
-          {/* <Media
-            frame={frame}
-            visibleFrame={visibleFrame}
-            className={classes.media}
-          /> */}
           <div>
             <RichText html={frame.richTxt} className={classes.richTxt} />
             <CustomLinkButton frame={frame} />
@@ -132,18 +137,15 @@ export default function MobileLayout({ logo, frames, children, footer }) {
       ))}
       {frames.map(frame => (
         <div className={classes.media} key={frame.id}>
-          <MediaMobile frame={frame} show={visibleFrame.id === frame.id} />
+          <MediaMobile
+            frame={frame}
+            show={
+              visibleFrame.id === frame.id &&
+              !overlappingFrames.includes(frame.id)
+            }
+          />
         </div>
       ))}
-      {/* <div className={classes.media}>
-        <AnimatePresence initial={false}>
-          <Media
-            key={visibleFrame.id}
-            frame={visibleFrame}
-            visibleFrame={visibleFrame}
-          />
-        </AnimatePresence>
-      </div> */}
       <NavBar
         logo={logo}
         frames={frames}

@@ -9,6 +9,8 @@ import {
   IpadLayout
 } from '../layouts';
 
+let unmounting = false;
+
 export default function PageLayout({ frames, footer, children }) {
   const ipad = useMediaQuery(theme => theme.breakpoints.up('ipad'));
   const laptop = useMediaQuery(theme => theme.breakpoints.up('laptop'));
@@ -17,11 +19,17 @@ export default function PageLayout({ frames, footer, children }) {
   const [brand, setBrand] = useState({});
 
   useEffect(() => {
+    unmounting = false;
     reactor.init();
     (async function getBarndData() {
       const brand = await reactor.getDoc('ByUskJqD9mSicfW7DAfx');
-      setBrand(brand);
+      if (!unmounting) {
+        setBrand(brand);
+      }
     })();
+    return () => {
+      unmounting = true;
+    };
   }, []);
 
   function getResponsiveLayout() {
