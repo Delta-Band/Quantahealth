@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     left: theme.spacing(2),
     top: theme.spacing(2),
+    zIndex: 1,
     '@media (orientation: landscape)': {},
     [theme.breakpoints.up('ipad')]: {
       // height: 65,
@@ -46,7 +47,7 @@ export default function SplashScreen({ splash }) {
     if (!splash) return;
     timeout = setTimeout(() => {
       setHide(true);
-    }, splash.time * 1000);
+    }, splash.time * 100000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       if (timeout) clearTimeout(timeout);
@@ -66,12 +67,9 @@ export default function SplashScreen({ splash }) {
       <lottie-interactive
         autoplay=''
         style={{
-          width: portrait ? '75%' : 'unset',
-          height: portrait ? 'unset' : '75%',
-          top: '50%',
-          left: '50%',
-          position: 'absolute',
-          transform: 'translate(-50%, -50%)'
+          width: '100%',
+          height: '100%',
+          position: 'absolute'
         }}
         path={splash.lottie}
         loop=''
