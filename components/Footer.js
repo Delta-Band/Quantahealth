@@ -143,7 +143,7 @@ export default function Footer({ className, data, onShow = () => {} }) {
                 }}
               />
             </div>
-            <Credits data={data} />
+            {/* <Credits data={data} /> */}
             <Reader
               noBleed
               open={openReader}
