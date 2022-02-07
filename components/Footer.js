@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { InView } from 'react-intersection-observer';
 import cx from 'classnames';
 import { Reader, Iframe } from '@deltaband/delta-next-mui';
-import Credits from './Credits';
+// import Credits from './Credits';
 import Social from './Social';
 
 const useStyles = makeStyles(theme => ({
