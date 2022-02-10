@@ -151,9 +151,11 @@ const theme = createTheme({
         //   transform: 'translateY(1px)'
         // }
       },
-      containedSecondary: {
+      containedPrimary: {
+        color: 'white',
+        backgroundColor: 'black',
         '&:hover': {
-          // backgroundColor: '#4431ff'
+          backgroundColor: 'black !important'
         }
       },
       containedSizeLarge: {

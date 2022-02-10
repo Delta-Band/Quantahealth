@@ -45,6 +45,7 @@ export default function Media({ frame, visibleFrame, className }) {
           playsInline
           muted
           loop
+          preload
           className={cx(classes.media, className)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

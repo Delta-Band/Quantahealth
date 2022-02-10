@@ -10,3 +10,4 @@ export { default as MediaMobile } from './MediaMobile';
 export { default as CustomLinkButton } from './CustomLinkButton';
 export { default as Credits } from './Credits';
 export { default as SplashScreen } from './SplashScreen';
+export { default as WeUseCookies } from './WeUseCookies';
